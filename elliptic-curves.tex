@@ -1,0 +1,82 @@
+\documentclass[a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\setlength\parindent{0pt}
+
+\usepackage{mathtools}
+\usepackage{enumitem} % enumeration label options
+\usepackage{amsfonts} % \mathbb, ...
+\usepackage{amsthm}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\title{Notes for Elliptic Curves by Vladimir Dokchitser}
+\author{Calum Crossley}
+\date{2023-2024}
+
+\begin{document}
+
+\maketitle
+
+Preparatory information:
+\begin{itemize}
+    \item Books: Silverman's ''Arithmetic of Elliptic Curves``
+    \item Prerequisites: basics of Galois theory, basics of number fields, basics of algebraic curves, complex analysis, $p$-adic numbers
+    \item Exercise sheets: 1 per lecture, 2 out of 5 exercises for assessment
+    \item Lectures: 10 of them
+\end{itemize}
+
+Tentative lecture topics:
+\begin{enumerate}[label=\arabic*)]
+    \item group law
+    \item over $\C$
+    \item heights
+    \item Mordell-Weil theorem
+    \item over $\Q_p$
+    \item formal groups
+    \item explicit 2-descent
+    \item Tate module
+    \item $L$-functions and BSD
+    \item Selmer groups
+\end{enumerate}
+
+\paragraph{Pre-waffle}
+
+This is a number theory course, so we care about solving Diophantine equations.
+For example, what are the rational solutions of $x^2+y^2=1$?
+\begin{equation*}
+    x = \frac{2t}{t^2+1}, \quad y = \frac{t^2-1}{t^2+1}, \quad t\in\Q.
+\end{equation*}
+The general case is impossibly hard; it is formally undecidable. We will focus
+on curves, such as one equation with two variables. Life is strongly affected by
+the geometry over $\C$, where the curve is a closed orientable surface in
+projective space.
+\begin{itemize}
+    \item Genus 0: The Riemann sphere; $\P^1$. The number theory is easy; either
+        there are no $\Q$-solutions or infinitely many nicely parametrized, and
+        we can decide which (Hasse principle).
+
+    \item Genus 1 (this course): The torus. There can be no $\Q$-solutions, or
+        finitely many, or infinitely many. No proven algorithm exists for the
+        general case, although there are algorithms conditional on the
+        Shetarevich--Tate conjecture or the BSD conjecture.
+
+    \item Genus $\ge2$: There are finitely many $\Q$-solutions by a theorem of
+        Faltings.
+\end{itemize}
+
+\begin{remark}
+    By Siegel's theorem there are only finitely many $\Z$-solutions for $g\ge1$.
+\end{remark}
+
+\section{Group Law}
+
+\end{document}
