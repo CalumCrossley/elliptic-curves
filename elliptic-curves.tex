@@ -11,8 +11,8 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-\newtheorem*{theorem}{Theorem}
-\newtheorem*{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
@@ -390,5 +390,101 @@ projective space.
             and $(\textit{a horrid mess})$ respectively.
     \end{itemize}
 \end{example}
+
+\subsection*{Exercise Sheet 1}
+
+\begin{enumerate}
+    \item[1.] Let $E$ be the elliptic curve given by
+        \begin{equation*}
+            y^2-y = x^3-x^2.
+        \end{equation*}
+        Verify that the point $P=(0,0)$ has order 5.
+
+        \begin{proof}[Solution]
+            The tangent at $P$ is $y=0$, which intersects $E$ when $x^3-x^2=0$.
+            The third point is then $(1,0)$, and the line through $(1,0)$ and
+            $\O$ intersects $E$ again at $(1,1)$. Hence $2\cdot P=(1,1)$.
+
+            The tangent at $(1,1)$ is $y=x$, which intersects $E$ when
+            $x^2-x=x^3-x^2$. The third point is then $(0,0)$, and the line
+            through $(0,0)$ and $\O$ intersects $E$ again at $(0,1)$. Hence
+            $4\cdot P=(0,1)$.
+
+            The line through $P$ and $(0,1)$ is $x=0$, which meets $E$ at the
+            point $\O$ at infinity. Hence $5\cdot P=\O$, so $P$ has order 5.
+        \end{proof}
+
+    \item[2.] Let $E/\Q$ be an elliptic curve that has a rational point of order
+        3. Show that $E$ is isomorphic to one of the form
+        \begin{equation*}
+            y^2 = x^3 + (ax-b)^2.
+        \end{equation*}
+        (\textit{Hint: you may find it helpful to show that a point $P$ has
+        order 3 if and only if the tangent line to $E$ through $P$ intersects
+        $E$ at $P$ with multiplicity 3.})
+
+        \begin{proof}[Solution]
+            We have $3\cdot P=\O$ iff the tangent line at $P$ intersects $E$
+            at $P$ only, i.e. it intersects $E$ with multiplicity 3 at $P$.
+            By Proposition 1(i), we may assume $E$ has an equation
+            of the form $y^2=x^3+px^2+qx+r$, and by translation we may assume
+            the rational point $P$ of order 3 is of the form $(0,\beta)$. The
+            tangent line at $P$ is then
+            \begin{equation*}
+                y = \beta + \frac{q}{2\beta}x,
+            \end{equation*}
+            which intersects $E$ when
+            \begin{align*}
+                &\bigl(\beta+\frac{q}{2\beta}x\bigr)^2 = x^3 + px^2 + qx + r \\
+                &\iff x^3 + \bigl(p-\frac{q^2}{4\beta^2}\bigr)x^2 + r - \beta^2
+                    = 0.
+            \end{align*}
+            This cubic has a triple root at $x=0$ iff
+            \begin{equation*}
+                p - \frac{q^2}{4\beta^2} = r-\beta^2 = 0,
+            \end{equation*}
+            in which case
+            \begin{align*}
+                E : y^2
+                    &= x^3 + \frac{q^2}{4\beta^2}x^2 + qx + \beta^2 \\
+                    &= x^3 + \bigl(\frac{q}{2\beta}x+\beta\bigr)^2
+            \end{align*}
+            which is of the desired form with $a=\frac{q}{2\beta}$, $b=-\beta$.
+        \end{proof}
+
+    \item[3.] Determine the group $E(\F_3)$ for the elliptic curves
+        \begin{equation*}
+            E:y^2=x^3-x  \qquad \text{and} \qquad E:y^2=x^3+x.
+        \end{equation*}
+
+        \begin{proof}[Solution]
+            For $E:y^2=x^3-x$ the polynomial $x^3-x$ vanishes on $\F_3$, so the
+            points (apart from $\O$) are $\{(x,0):x\in\F_3\}$. All have order 2
+            since $y=0$, so $E(\F_3)\cong C_2\times C_2$.
+
+            For $E:y^2=x^3+x$ the points (apart from $\O$) are
+            $\{(0,0),(2,1),(2,2)\}$. Since $(2,1)$ and $(2,2)$ do not have order
+            2, having $y\ne0$, we have $E(\F_3)\cong C_4$.
+        \end{proof}
+
+    \item[4.] Let $E$ and $E'$ be two elliptic curves over a field $K$ given by
+        Weierstrass equations. Show that if the elliptic curves $E$ and $E'$ are
+        isomorphic, then so are the groups $E(K)$ and $E'(K)$.
+
+        \begin{proof}[Solution]
+            By Proposition 1(ii) we may assume $E$ and $E'$ are related by a
+            linear change of coordinates. Now a $K$-linear change of coordinates
+            preserves $K$-rational points, lines, incidence, and tangency, and
+            therefore preserves the definition of the group law on $E(K)$. Hence
+            it gives a group isomorphism $E(K)\cong E'(K)$.
+        \end{proof}
+
+    \item[!5.] Prove that for every positive integer $N\equiv5\mod8$, the
+        elliptic curve
+        \begin{equation*}
+            y^2 = x^3-N^2x
+        \end{equation*}
+        has a rational point with a non-zero $y$-coordinate.
+\end{enumerate}
 
 \end{document}
