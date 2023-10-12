@@ -11,15 +11,23 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
-\newtheorem{proposition}{Proposition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
-\newtheorem*{definition}{Definition}
 \newtheorem*{example}{Example}
+\newtheorem*{exercise}{Exercise}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
 \newtheorem*{notation}{Notation}
 
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\res}{res}
 \DeclareMathOperator{\ch}{char}
 
 \newcommand{\divides}{\bigm|}
@@ -45,18 +53,20 @@
 Preparatory information:
 \begin{itemize}
     \item Books: Silverman's ``Arithmetic of Elliptic Curves''
-    \item Prerequisites: basics of Galois theory, basics of number fields, basics of algebraic curves, complex analysis, $p$-adic numbers
+    \item Prerequisites: basics of Galois theory, basics of number fields,
+        basics of algebraic curves, complex analysis, $p$-adic numbers
     \item Exercise sheets: 1 per lecture, 2 out of 5 exercises for assessment
+        (marked with a ``+'')
     \item Lectures: 10 of them
 \end{itemize}
 
 Tentative lecture topics:
 \begin{enumerate}[label=\arabic*)]
     \item The group law
-    \item Geometry over $\C$
+    \item Elliptic curves over $\C$
     \item Heights
     \item The Mordell-Weil theorem
-    \item Geometry over $\Q_p$
+    \item Elliptic curves over $\Q_p$
     \item Formal groups
     \item Explicit 2-descent
     \item Tate modules
@@ -64,8 +74,7 @@ Tentative lecture topics:
     \item Selmer groups
 \end{enumerate}
 
-\paragraph{Pre-waffle}
-
+\paragraph{Pre-waffle.}
 This is a number theory course, so we care about solving Diophantine equations.
 For example, what are the rational solutions of $x^2+y^2=1$?
 \begin{equation*}
@@ -394,7 +403,7 @@ projective space.
 \subsection*{Exercise Sheet 1}
 
 \begin{enumerate}
-    \item[1.] Let $E$ be the elliptic curve given by
+    \item[+1.] Let $E$ be the elliptic curve given by
         \begin{equation*}
             y^2-y = x^3-x^2.
         \end{equation*}
@@ -414,7 +423,7 @@ projective space.
             point $\O$ at infinity. Hence $5\cdot P=\O$, so $P$ has order 5.
         \end{proof}
 
-    \item[2.] Let $E/\Q$ be an elliptic curve that has a rational point of order
+    \item[+2.] Let $E/\Q$ be an elliptic curve that has a rational point of order
         3. Show that $E$ is isomorphic to one of the form
         \begin{equation*}
             y^2 = x^3 + (ax-b)^2.
@@ -486,5 +495,341 @@ projective space.
         \end{equation*}
         has a rational point with a non-zero $y$-coordinate.
 \end{enumerate}
+
+\section{Elliptic Curves / $\C$}
+
+Recall that for an elliptic curve $E$ we defined an operation on rational points
+geometrically via intersections of lines with $E$. Now an elliptic curve $E/\C$
+is supposed to be a torus (a genus 1 Riemann surface), and the standard
+construction of a complex torus as $\C/\Lambda$ for a lattice $\Lambda$ has an
+obvious group structure as a quotient of $(\C,+)$. How does this relate to the
+group structure given by line intersections?
+
+\begin{proposition}[Recall from complex analysis]
+    A function $f:\C\to\C$ is meromorphic iff at
+    every $a\in\C$ it has a Laurent series expression
+    \begin{equation*}
+        f(z) = \sum_{n=n_0}^\infty c_n(z-a)^n
+    \end{equation*}
+    where $n_0\in\Z$ and $c_{n_0}\ne0$ unless $f(z)\equiv0$. We write
+    \begin{equation*}
+        \ord_af = n_0 \quad \text{and} \quad \res_af=c_{-1}.
+    \end{equation*}
+\end{proposition}
+
+\begin{definition}
+    A \emph{lattice} $\Lambda\subseteq\C$ is a discrete rank 2 subgroup of
+    $(\C,+)$. Say
+    \begin{equation*}
+        \Lambda = \Z\omega_1\oplus\Z\omega_2.
+    \end{equation*}
+    The parallelogram spanned by $\omega_1$ and $\omega_2$ is the
+    \emph{fundamental parallelogram}, denoted $\Pi$.
+\end{definition}
+
+\textit{Idea:} Curves are essentially degree 1 transcendental extensions of
+$\C$, and the Riemann surface $\C/\Lambda$ has a field of meromorphic functions,
+so we check if that field has transcendence degree 1 over $\C$.
+
+\begin{definition}
+    An \emph{elliptic function} (w.r.t. $\Lambda$) is a meromorphic function $f$
+    on $\C$ such that $f(z+w)=f(z)$ for all $w\in\Lambda$. In other words, a
+    doubly-periodic meromorphic function.
+\end{definition}
+
+\begin{remark}
+    These are precisely the meromorphic functions on the Riemann surface
+    $X=\C/\Lambda$. They form a field, since we allow poles, denoted $\C(X)$.
+\end{remark}
+
+\begin{lemma}
+    Suppose $f$ is a non-zero elliptic function.
+    \begin{enumerate}[label=(\roman*)]
+        \item If $f$ is analytic, then $f$ is constant.
+        \item We have $\ord_af\ne0$ at only finitely many $a\in\C/\Lambda$.
+        \item $\sum_{a\in\C/\Lambda}\res_af=0$.
+        \item $\sum_{a\in\C/\Lambda}\ord_af=0$.
+        \item $\sum_{a\in\C/\Lambda}\ord_af\cdot a\in\Lambda$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item If $f$ is analytic then $f$ is continuous, and hence bounded on
+            $\Pi$ since $\Pi$ is compact. By periodicity $f$ is bounded on $\C$,
+            and hence constant by Liouville's theorem.
+
+        \item Otherwise, we have an accumulation point in $\Pi$ either of zeros
+            or of poles. In the former case $f=0$ by the identity theorem, and
+            in the latter case the limit point is an essential singularity. (One
+            can also reduce to only one of these cases by considering $1/f$.)
+
+        \item After translating $\Pi$ by some amount we can assume no zeros or
+            poles like on $\partial\Pi$, since there are only finitely many.
+            Then
+            \begin{equation*}
+                \sum_{a\in\C/\Lambda}\res_af
+                    = \frac{1}{2\pi i}\oint_{\partial\Pi}f(z)dz
+            \end{equation*}
+            by the residue theorem. The integral splits up into four parts
+            \begin{equation*}
+                \oint_{\partial\Pi}
+                    = \left[\int_0^{\omega_1}
+                        + \int_{\omega_1+\omega_2}^{\omega_2}\right]
+                    + \left[\int_{\omega_2}^0
+                        + \int_{\omega_1}^{\omega_1+\omega_2}\right],
+            \end{equation*}
+            but since the integrand is doubly periodic we have
+            \begin{equation*}
+                \int_0^{\omega_1} = -\int_{\omega_1+\omega_2}^{\omega_2}
+                \quad \text{and} \quad
+                \int_{\omega_2}^0 = -\int_{\omega_1}^{\omega_1+\omega_2},
+            \end{equation*}
+            so the result is zero.
+
+        \item Apply (iii) to $f'(z)/f(z)$, whose residues are the orders of
+            $f(z)$ by local Taylor expansion.
+
+        \item Exercise. (Use $zf'(z)/f(z)$.)
+    \end{enumerate}
+\end{proof}
+
+We are prompted to ask, are there any non-constant elliptic functions? From
+above they must have at least two poles, or a double pole. The answer is yes,
+via (almost) the most obvious construction.
+
+\begin{definition}
+    The \emph{Weierstrass $\wp$-function} (w.r.t. $\Lambda$) is given by
+    \begin{equation*}
+        \wp(z) = \wp_\Lambda(z)
+            = \frac{1}{z^2} + \sum_{w\in\Lambda\setminus\{0\}}
+                \left(\frac{1}{(z-w)^2}-\frac{1}{w^2}\right).
+    \end{equation*}
+\end{definition}
+
+\begin{exercise}
+    The sum $\sum_{w\in\Lambda\setminus\{0\}}\frac{1}{|w|^\alpha}$ converges iff
+    $\alpha>2$.
+\end{exercise}
+
+\begin{proposition}
+    The expression for $\wp(z)$ converges locally uniformly to an elliptic
+    function analytic on $\C\setminus\Lambda$ with doubles poles on $\Lambda$.
+\end{proposition}
+
+\begin{proof}
+    If $2|z|<|w|$, then
+    \begin{equation*}
+        \left|\frac{1}{(z-w)^2}-\frac{1}{w^2}\right|
+            = \left|\frac{z(2w-z)}{w^2(z-w)^2}\right|
+            \le \frac{\frac{5}{2}|zw|}{\frac{1}{4}|w|^4}
+            = 10\frac{|z|}{|w|^3}.
+    \end{equation*}
+    Hence
+    \begin{equation*}
+        \sum_{|w|>2|z|}\left|\frac{1}{(z-w)^2}-\frac{1}{w^2}\right|
+        \le 10|z|\sum_{w\in\Lambda\setminus\{0\}}\frac{1}{|w|^3},
+    \end{equation*}
+    which is a finite constant multiple of $|z|$ by the exercise above.
+    Therefore the series converges locally uniformly absolutely on
+    $\C\setminus\Lambda$, and the limit is an analytic function on
+    $\C\setminus\Lambda$. Clearly it has double poles on $\Lambda$.
+
+    To see that $\wp$ is elliptic, note that
+    \begin{equation*}
+        \wp'(z) = -2\sum_{w\in\Lambda}\frac{1}{(z-w)^3}
+    \end{equation*}
+    which is clearly elliptic, so $\wp(z+w)-\wp(z)=C(w)$ is a constant depending
+    on $w\in\Lambda$. But we can see that $\wp(z)=\wp(-z)$ by definition, so
+    $\wp(-w/2)=\wp(w/2)=\wp(-w/2+w)$, so $C(w)=0$.
+\end{proof}
+
+\begin{lemma}
+    ~
+    \begin{enumerate}[label=(\roman*)]
+        \item $\wp(z)$ is even.
+        \item $\wp'(z)$ is odd.
+        \item $\wp(z)-\wp(\alpha)$ has a double pole at $0+\Lambda$, simple
+            zeros at $\pm\alpha+\Lambda$ (or a double zero if
+            $2\alpha\in\Lambda$), and no other zeros or poles.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    (i) was noted above. (ii) follows immediately. For (iii) the statement about
+    poles is clear, and the statement about zeros follows by counting using
+    Lemma 6(iv).
+\end{proof}
+
+\begin{theorem}
+    Let $\Lambda\subseteq\C$ be a lattice, and set $X=\C/\Lambda$.
+    \begin{enumerate}[label=(\roman*)]
+        \item $\C(X)=\C(\wp(z),\wp'(z))$.
+        \item Every even elliptic function lies in $\C(\wp(z))$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    For (ii), suppose an even elliptic function $f(z)$ has zeros/poles away from
+    $\Lambda$ at $\pm z_i\notin\Lambda$, with $\ord_{\pm z_i}f=n_i$. (If
+    $2z_i\in\Lambda$ take $n_i=\frac{1}{2}\ord_{z_i}f$.) Consider
+    \begin{equation*}
+        \tilde f(z)=\prod_i(\wp(z)-\wp(z_i))^{n_i} \in \C(\wp(z)).
+    \end{equation*}
+    Then $f(z)/\tilde f(z)$ has no zeros/poles except possibly on $\Lambda$ by
+    Lemma 8(iii). By Lemma 6(iv) then $f(z)/\tilde f(z)$ has no zeros/poles at
+    all, and hence is constant. Therefore $f(z)\in\C(\wp(z))$.
+
+    For (i), write an arbitrary elliptic function $f(z)$ as a sum
+    \begin{equation*}
+        f(z) = \frac{f(z)+f(-z)}{2} + \frac{f(z)-f(-z)}{2}
+    \end{equation*}
+    of an even and an odd elliptic function. Since an odd function is an even
+    multiple of the odd function $\wp'(z)$, we are done by (ii). In fact we see
+    that $\C(\wp(z),\wp'(z))$ is a quadratic extension of $\C(\wp(z))$.
+\end{proof}
+
+\begin{definition}
+    We define
+    \begin{equation*}
+        G_{2k} = G_{2k}(\Lambda)
+            = \sum_{w\in\Lambda\setminus\{0\}}\frac{1}{w^{2k}} \in \C
+    \end{equation*}
+    for $k\ge2$. This is known as the \emph{Eisenstein series} of weight $2k$.
+\end{definition}
+
+\begin{remark}
+    This is a two-dimensional version of the special values $\zeta(2k)$ for
+    $k\ge1$.
+\end{remark}
+
+\begin{lemma}
+    The Taylor series expansion around $z=0$ of $\wp(z)$ is
+    \begin{equation*}
+        \wp(z) = \frac{1}{z^2} + \sum_{k=1}^\infty(2k+1)G_{2k+2}z^{2k}.
+    \end{equation*}
+\end{lemma}
+
+\begin{proof}
+    We have
+    \begin{align*}
+        \frac{1}{(z-w)^2} - \frac{1}{w^2}
+            &= \frac{1}{w^2}\cdot\frac{1}{\bigl(1-\frac{z}{w}\bigr)^2-1} \\
+            &= \frac{1}{w^2}\sum_{k=1}^\infty\frac{2k+1}{w^{2k}}z^{2k}.
+    \end{align*}
+    Summing over $w$ gives the result.
+\end{proof}
+
+\begin{lemma}
+    We have the equation
+    \begin{equation*}
+        \frac{1}{4}\wp'(z)^2 = \wp(z)^3 - 15G_4\wp(z) - 35G_6.
+    \end{equation*}
+\end{lemma}
+
+\begin{proof}
+    From the Taylor expansions
+    \begin{align*}
+        \wp(z) &= \frac{1}{z^2} + 3G_4z^2 + 5G_6z^4 + \cdots \\
+        \wp(z)^3 &= \frac{1}{z^6} + \frac{9G_4}{z^2} + 15G_6 + \cdots \\
+        \frac{1}{4}\wp'(z)^2 &= \frac{1}{z^6} - \frac{6G_4}{z^2} - 20G_6 + \cdots
+    \end{align*}
+    we see that the difference between the two sides of the equation is analytic
+    and vanishes at the origin, whence it is identically zero.
+\end{proof}
+
+\begin{theorem}
+    Let $\Lambda\subseteq\C$ be a lattice. Then
+    \begin{equation*}
+        E_\Lambda : y^2 = x^3 - 15G_4x - 35G_6
+    \end{equation*}
+    defines an elliptic curve over $\C$, i.e. it is non-singular, and
+    \begin{equation*}
+        \varphi(z) = (\wp(z),\frac{1}{2}\wp'(z)) \qquad \wp(0)=\O
+    \end{equation*}
+    is an isomorphism of groups $\C/\Lambda\to E_\Lambda(\C)$.
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+        \item $\varphi$ is well-defined by Lemma 11 and periodicity of $\wp$.
+
+        \item $\varphi$ is bijective: if $(x_0,y_0)\in E_\Lambda(\C)$, then
+            $\wp(z)-x_0$ has one double pole, and therefore two zeros
+            $\pm\alpha$, giving
+            \begin{equation*}
+                \{\varphi(\alpha),\varphi(-\alpha)\} = \{(x_0,y_0),(x_0,-y_0)\}.
+            \end{equation*}
+            Hence $\varphi$ is a bijection.
+
+        \item $E_\Lambda$ is non-singular: as $\wp'(z)$ is odd, it vanishes at
+            the three points $\tau$ of order 2 in $\C/\Lambda$, and hence the
+            roots of the cubic in $x$ are the images $\wp(\omega_1/2)$,
+            $\wp(\omega_2/2)$, $\wp((\omega_1+\omega_2)/2)$ of these points.
+            These roots are distinct, since $\wp(z)-\wp(\tau)$ has a double root
+            at $\tau$ and hence no other zeros.
+
+        \item $\varphi$ is a group homomorphism:
+            \begin{itemize}
+                \item $\varphi(0)=\O$.
+                \item $\varphi(-\alpha)$ and $\varphi(\alpha)$ lie on a vertical
+                    line since $\wp(z)$ is even.
+
+                \item Suppose $P_1\oplus P_2=\ominus P_3$, with $\{P_i\}$ lying
+                    on the line
+                    \begin{equation*}
+                        \lambda y + \mu x + \nu = 0.
+                    \end{equation*}
+                    Writing $P_i=\varphi(\alpha_i)$, the elliptic function
+                    $\frac{\lambda}{2}\wp'(z)+\mu\wp(z)+\nu$ vanishes at each
+                    $\alpha_i$, and has a triple pole on $\Lambda$. By Lemma
+                    6(v) we therefore have $\alpha_1+\alpha_2+\alpha_3=0$.
+            \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    The result shows that $(E_\Lambda(\C),\oplus)$ is indeed a group.
+\end{remark}
+
+\begin{theorem}[Uniformization Theorem]
+    Every elliptic curve over $\C$ is isomorphic to $E_\Lambda$ for some
+    $\Lambda$.
+\end{theorem}
+
+\begin{proof}
+    Beyond the scope of the course.
+\end{proof}
+
+\begin{corollary}
+    Let $K$ be a number field, and $E/K$ an elliptic curve. Then
+    $E(K)[n]\le\Z/n\Z\oplus\Z/n\Z$.
+\end{corollary}
+Here $A[n]=\{a\in A:na=0\}$ denotes the $n$-torsion subgroup of an abelian group
+$A$.
+
+\begin{proof}
+    By the uniformization theorem we have
+    $E(K)\le E(\C)\cong E_\Lambda(\C)\cong\C/\Lambda$ for some $\Lambda$. But
+    by inspection $(\C/\Lambda)[n]\cong\Z/n\Z\oplus\Z/n\Z$.
+\end{proof}
+
+\begin{corollary}
+    Let $E:y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6$ be an elliptic curve over a field
+    of characteristic 0. Then $(E(K),\oplus)$ is a group.
+\end{corollary}
+
+Note that $K$ may have cardinality too large to embed into $\C$.
+
+\begin{proof}
+    This is an example of the ``Lefschetz principle''. All group axioms apart
+    from associativity are easy. Suppose $P_i=(x_i,y_i)\in E(K)$ for $i=1,2,3$.
+    Define the field $F=\Q(a_1,a_2,a_3,a_4,a_6,x_1,y_1,x_2,y_2,x_3,y_3)$, which
+    embeds into $\C$ as a finitely generated $\Q$-extension. We may then view
+    $E$ over $\C$ via this embedding, and $P_i\in E(F)\le E(\C)$ where
+    $(P_1\oplus P_2)\oplus P_3=P_1\oplus(P_2\oplus P_3)$ by the previous result.
+\end{proof}
+
+\subsection*{Exercise Sheet 2}
 
 \end{document}
