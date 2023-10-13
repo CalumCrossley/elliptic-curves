@@ -832,4 +832,33 @@ Note that $K$ may have cardinality too large to embed into $\C$.
 
 \subsection*{Exercise Sheet 2}
 
+\begin{enumerate}
+    \item[+1.]
+        Let $E/\C$ be an elliptic curve given by
+        \begin{equation*}
+            y^2 = x^3 + Ax + B,
+        \end{equation*}
+        and let $m\ge1$ be an integer. Use the uniformization theorem to show
+        that there are rational functions $f,g$ such that for every
+        $P=(x_1,y_1)\in E(\C)$, the point $mP$ is given by $(f(x_1),y_1g(x_1))$.
+
+        \begin{proof}[Solution]
+            By the uniformization theorem $E\cong E_\Lambda$ for some $\Lambda$,
+            and by Proposition 2(ii) there is an isomorphism given by a linear
+            change of coordinates of the form
+            \begin{equation*}
+                x=u^2x'+r,\quad y=u^3y'+u^2sx'+t.
+            \end{equation*}
+            Since $E_\Lambda$ has no $xy$ and no $y$ term we have $s=t=0$, and
+            so this change of coordinates preserves functions of the desired
+            form $(f(x),yg(x))$. Hence we may assume $E=E_\Lambda$, where there
+            is the group isomorphism $\C/\Lambda\to E_\Lambda(\C)$ given by
+            $z+\Lambda\mapsto(\wp(z),\frac{1}{2}\wp'(z))$. Then if
+            $(x_1,y_1)=(\wp(z),\frac{1}{2}\wp'(z))$, the coordinates of $mP$ are
+            $(\wp(mz),\frac{1}{2}\wp'(mz))$, and it suffices to note that
+            $\wp(mz)$ and $\wp'(mz)/\wp'(z)$ are even elliptic functions, hence
+            given by rational functions $f,g$ of $\wp(z)$.
+        \end{proof}
+\end{enumerate}
+
 \end{document}
