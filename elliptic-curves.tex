@@ -952,7 +952,7 @@ Note that $K$ may have cardinality too large to embed into $\C$.
             $P\oplus(Q\oplus R)=(P\oplus Q)\oplus R$ for an elliptic curve is
             easily seen to be true in the following cases:
             \begin{itemize}
-                \item If $P=\O$, $Q=\O$, $R=\O$, or $P=Q=R$.
+                \item If $P=\O$, $Q=\O$, or $R=\O$.
                 \item If $P\oplus(Q\oplus R)=\O$ or $(P\oplus Q)\oplus R=\O$,
                     since these both happen iff $P,Q,R$ are collinear.
                 \item If $P\oplus Q=\O$ or $Q\oplus R=\O$, since
@@ -967,22 +967,24 @@ Note that $K$ may have cardinality too large to embed into $\C$.
                 y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6
             \end{equation*}
             is an equation over $\Z_p$ reducing to $E$ modulo $p$ which defines
-            an elliptic curve $\tilde E/\Q_p$. One exists, since by completing
-            the square and applying Proposition 2(iii) non-singularity is
-            equivalent to non-vanishing of a (non-zero) polynomial in the
-            coefficients, which cannot vanish at all possible lifts: fix all but
-            one of the variables appearing in the polynomial, and note that a
-            non-zero single-variable polynomial cannot have infinitely many
-            roots. Since $\Q_p$ embeds into $\C$, we see that $\oplus$ is
-            associative on $\tilde E(\Q_p)$ by the uniformization theorem.
+            an elliptic curve $\tilde E/\Q_p$. One exists by completing the
+            square and applying Proposition 2(iii); the discriminant cannot
+            vanish for the infinitely many possible lifts of the coefficients.
+            Since $\Q_p$ embeds into $\C$, we see that $\oplus$ is associative
+            on $\tilde E(\Q_p)$ by the uniformization theorem.
+
+            If $P\in\tilde E(\Z_p)$, write $\bar P\in E(\F_p)$ for the reduction
+            modulo $p$. Since $E$ is non-singular, for every point in $E(\F_p)$
+            one coordinate when fixed leaves the other as a simple root of the
+            defining equation. By Hensel's lemma simple roots can be lifted to
+            $\Z_p$, so all points of $E(\F_p)$ are of the form $\bar P$.
 
             \textbf{Claim:} If $P,Q\in\tilde E(\Z_p)$ with
-            $\bar P\oplus\bar Q\ne\O$, where $\bar P,\bar Q\in E(\F_p)$ are the
-            reductions modulo $p$, then $P\oplus Q\in\tilde E(\Z_p)$ and
+            $\bar P\oplus\bar Q\ne\O$, then $P\oplus Q\in\tilde E(\Z_p)$ and
             $\overline{P\oplus Q}=\bar P\oplus\bar Q$.
 
-            With the initial note allowing us to assume sums don't vanish, this
-            proves associativity on $E(\F_p)$:
+            Since we dealt with the case of vanishing sums earlier, this proves
+            associativity on $E(\F_p)$:
             \begin{equation*}
                 \bar P\oplus(\bar Q\oplus\bar R)
                     = \bar P\oplus\overline{Q\oplus R}
@@ -991,8 +993,36 @@ Note that $K$ may have cardinality too large to embed into $\C$.
                     = (\bar P\oplus\bar Q)\oplus\bar R.
             \end{equation*}
 
-            \textbf{Proof of claim:} % TODO: Hensel
+            \textbf{Proof of claim:} Suppose $P=(x_1,y_1)$, $Q=(x_2,y_2)$, and
+            $P\oplus Q=(x_3,y_3)$. Write $s=\frac{y_2-y_1}{x_2-x_1}\in\Z_p$,
+            where $x_2-x_1$ is invertible in $\Z_p$ since
+            $\bar P\oplus\bar Q\ne\O$. We have a monic cubic
+            \begin{equation*}
+                (y_1+s(x-x_1))^2 + (a_1x+a_3)(y_1+s(x-x_1))
+                    = x^3 + a_2x^2 + a_4x + a_6
+            \end{equation*}
+            in $x$ over $\Z_p$, whose roots in $\Q_p$ are $x_1,x_2,x_3$, and
+            whose roots upon reduction to $\F_p$ are the $x$-coordinates of
+            $\bar P,\bar Q,\bar P\oplus\bar Q$. Factoring out $(x-x_1)(x-x_2)$
+            we see that $x_3\in\Z_p$, since the equation is monic, and reducing
+            to $\F_p$ we see that $x_3$ lifts the $x$-coordinate of
+            $\bar P\oplus\bar Q$. Similarly, factoring out the root
+            $y_1+s(x_1-x_3)$ of the monic quadratic
+            \begin{equation*}
+                y^2 + a_1x_3y + a_3y = x_3^3 + a_2x_3^2 + a_4x_3 + a_6
+            \end{equation*}
+            in $y$ over $\Z_p$, we see that $y_3\in\Z_p$ lifts the
+            $y$-coordinate of $\bar P\oplus\bar Q$.
         \end{proof}
+
+    \item[!5.] Fix an elliptic curve $E/\Q$ given by $y^2=x^3+Ax+B$ and consider
+        the family of its ``quadratic twists'',
+        \begin{equation*}
+            d\cdot y^2=x^3+Ax+B,
+        \end{equation*}
+        where $d$ runs over all square-free integers (ordered by absolute
+        value). Show that 50\% of the elliptic curves in this family have an
+        infinite number of rational points.
 \end{enumerate}
 
 \end{document}
