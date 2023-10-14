@@ -942,11 +942,58 @@ Note that $K$ may have cardinality too large to embed into $\C$.
             by the uniformization theorem.
         \end{proof}
 
-    \item[4.] Let $E/K$ be an elliptic curve over $\F_p$ given by a Weierstrass
+    \item[4.] Let $E$ be an elliptic curve over $\F_p$ given by a Weierstrass
         equation. Prove that the operation $\oplus$ is associative.
         (\textit{Hint: Write $E$ as the reduction mod $p$ of a suitable
         elliptic curve with coefficients in $\Z_p$. You'll need Hensel's Lemma
         to lift points from $\F_p$ to $\Z_p$.})
+
+        \begin{proof}[Solution]
+            Firstly, note that the associativity equation
+            $P\oplus(Q\oplus R)=(P\oplus Q)\oplus R$ for an elliptic curve is
+            easily seen to be true in the following cases:
+            \begin{itemize}
+                \item If $P=\O$, $Q=\O$, $R=\O$, or $P=Q=R$.
+                \item If $P\oplus(Q\oplus R)=\O$ or $(P\oplus Q)\oplus R=\O$,
+                    since these both happen iff $P,Q,R$ are collinear.
+                \item If $P\oplus Q=\O$ or $Q\oplus R=\O$, since
+                    $(-P)\oplus(P\oplus Q)=Q$: the points $P,Q,-(P\oplus Q)$ are
+                    the intersections of a line with $E$, so the reflections
+                    $-P,-Q,P\oplus Q$ are also. (For a Weierstrass equation
+                    negation $(x,y)\mapsto(x,-y-a_1x-a_3)$ is linear and so
+                    sends lines to lines.)
+            \end{itemize}
+            Now suppose
+            \begin{equation*}
+                y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6
+            \end{equation*}
+            is an equation over $\Z_p$ reducing to $E$ modulo $p$ which defines
+            an elliptic curve $\tilde E/\Q_p$. One exists, since by completing
+            the square and applying Proposition 2(iii) non-singularity is
+            equivalent to non-vanishing of a (non-zero) polynomial in the
+            coefficients, which cannot vanish at all possible lifts: fix all but
+            one of the variables appearing in the polynomial, and note that a
+            non-zero single-variable polynomial cannot have infinitely many
+            roots. Since $\Q_p$ embeds into $\C$, we see that $\oplus$ is
+            associative on $\tilde E(\Q_p)$ by the uniformization theorem.
+
+            \textbf{Claim:} If $P,Q\in\tilde E(\Z_p)$ with
+            $\bar P\oplus\bar Q\ne\O$, where $\bar P,\bar Q\in E(\F_p)$ are the
+            reductions modulo $p$, then $P\oplus Q\in\tilde E(\Z_p)$ and
+            $\overline{P\oplus Q}=\bar P\oplus\bar Q$.
+
+            With the initial note allowing us to assume sums don't vanish, this
+            proves associativity on $E(\F_p)$:
+            \begin{equation*}
+                \bar P\oplus(\bar Q\oplus\bar R)
+                    = \bar P\oplus\overline{Q\oplus R}
+                    = \overline{P\oplus Q\oplus R}
+                    = \overline{P\oplus Q}\oplus\bar R
+                    = (\bar P\oplus\bar Q)\oplus\bar R.
+            \end{equation*}
+
+            \textbf{Proof of claim:} % TODO: Hensel
+        \end{proof}
 \end{enumerate}
 
 \end{document}
