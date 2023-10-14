@@ -434,11 +434,15 @@ projective space.
 
         \begin{proof}[Solution]
             We have $3\cdot P=\O$ iff the tangent line at $P$ intersects $E$
-            at $P$ only, i.e. it intersects $E$ with multiplicity 3 at $P$.
-            By Proposition 1(i), we may assume $E$ has an equation
+            at $P$ only. By Proposition 1(i), we may assume $E$ has an equation
             of the form $y^2=x^3+px^2+qx+r$, and by translation we may assume
-            the rational point $P$ of order 3 is of the form $(0,\beta)$. The
-            tangent line at $P$ is then
+            the rational point $P$ of order 3 is of the form $(0,\beta)$. If
+            $\beta=0$ then $r=0$ and $q\ne0$ by non-singularity, so the tangent
+            line at $P$ is the $y$-axis, whose intersections with $E$ are given
+            by the cubic equation $x^3+px^2+qx=0$. This has at least two
+            distinct roots, since $q\ne0$, contradicting the fact that $P$ is
+            the only intersection of the tangent line with $E$. Hence
+            $\beta\ne0$, so the tangent line at $P$ is
             \begin{equation*}
                 y = \beta + \frac{q}{2\beta}x,
             \end{equation*}
@@ -448,17 +452,19 @@ projective space.
                 &\iff x^3 + \bigl(p-\frac{q^2}{4\beta^2}\bigr)x^2 + r - \beta^2
                     = 0.
             \end{align*}
-            This cubic has a triple root at $x=0$ iff
+            Then since $3\cdot P=\O$ this cubic has only the one root at $x=0$,
+            meaning
             \begin{equation*}
                 p - \frac{q^2}{4\beta^2} = r-\beta^2 = 0,
             \end{equation*}
-            in which case
+            so
             \begin{align*}
                 E : y^2
                     &= x^3 + \frac{q^2}{4\beta^2}x^2 + qx + \beta^2 \\
-                    &= x^3 + \bigl(\frac{q}{2\beta}x+\beta\bigr)^2
+                    &= x^3 + \bigl(\frac{q}{2\beta}x+\beta\bigr)^2,
             \end{align*}
-            which is of the desired form with $a=\frac{q}{2\beta}$, $b=-\beta$.
+            which is of the desired form with $a=\frac{q}{2\beta}$ and
+            $b=-\beta$.
         \end{proof}
 
     \item[3.] Determine the group $E(\F_3)$ for the elliptic curves
