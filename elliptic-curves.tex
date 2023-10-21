@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{amssymb} % \nmid
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
@@ -26,12 +27,15 @@
 \newtheorem*{definition}{Definition}
 \newtheorem*{notation}{Notation}
 
+\DeclareMathOperator{\Reg}{Reg}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\res}{res}
 \DeclareMathOperator{\ch}{char}
 
-\newcommand{\divides}{\bigm|}
-
+\newcommand{\tors}{\text{tors}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
 \renewcommand{\P}{\mathbb{P}}
 \renewcommand{\O}{\mathcal{O}}
 \newcommand{\E}{\mathcal{E}}
@@ -351,7 +355,7 @@ projective space.
     The equation $y^2=(x-1)(x-2)(x-3)\mod p$, where $p\ne2$ is prime, has
     total number of solutions $N\equiv3\mod 4$. Indeed $E(\F_p)$ has a subgroup
     isomorphic to $C_2\times C_2$ given by the points of order 2 and the
-    identity, so $4\divides\#E(\F_p)$, and removing the point at infinity gives
+    identity, so $4\mid\#E(\F_p)$, and removing the point at infinity gives
     $N=\#E(\F_p)-1$.
 \end{example}
 
@@ -1029,6 +1033,346 @@ Note that $K$ may have cardinality too large to embed into $\C$.
         where $d$ runs over all square-free integers (ordered by absolute
         value). Show that 50\% of the elliptic curves in this family have an
         infinite number of rational points.
+\end{enumerate}
+
+\section{Heights}
+
+\begin{definition}
+    For $\alpha=p/q\in\Q$ with $p$ and $q$ coprime, define the \emph{height} of
+    $\alpha$
+    \begin{equation*}
+        H(\alpha) = H_\Q(\alpha) = \max\{|p|,|q|\},
+    \end{equation*}
+    and the \emph{logarithmic height} of $\alpha$
+    \begin{equation*}
+        h(\alpha) = \log H(\alpha).
+    \end{equation*}
+\end{definition}
+
+\begin{notation}
+    For a rational function $f(x)=P(x)/Q(x)\in K(x)$ over a field $K$ where
+    $P(x),Q(x)\in K[x]$ have no common factor, we define the degree of $f$ to be
+    $\max\{\deg P,\deg Q\}$.
+\end{notation}
+
+\begin{proposition}
+    ~
+    \begin{enumerate}[label=(\roman*)]
+        \item $h(\alpha)\ge0$ for all $\alpha\in\Q$.
+
+        \item $h(\alpha)=0$ iff $\alpha\in\{0,1,-1\}$.
+
+        \item $h(\alpha^d)=d\cdot h(\alpha)$ for each $d\ge1$.
+
+        \item If $f(x)=(a_nx^n+\cdots+a_0)/(b_mx^m+\cdots+b_0)\in\Q(x)$ has
+            degree $d$, then $h(f(\alpha))=d\cdot h(\alpha)+O(1)$, i.e. there is
+            a constant $c$ such that
+            \begin{equation*}
+                d\cdot h(\alpha) - c \le h(f(\alpha)) \le d\cdot h(\alpha) + c
+            \end{equation*}
+            for all $\alpha\in\Q$.
+
+        \item The set $\{\alpha\in\Q:h(\alpha)<c\}$ is finite for each $c>0$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    All except (iv) are clear. For (iv), we may assume without loss of
+    generality that $n\ge m$, otherwise considering $1/f(x)$, and that
+    $a_i,b_j\in\Z$. Write
+    \begin{equation*}
+        f(S/T)
+            = \frac{a_nS^n+\cdots+a_0T^n}{(b_mS^m+\cdots+b_0T^m)T^{n-m}}
+            = \frac{A(S,T)}{B(S,T)},
+    \end{equation*}
+    with $A(S,1)$ and $B(S,1)$ coprime in $\Q[S]$. Then for $\alpha=p/q$, we
+    have
+    \begin{equation*}
+        |a_np^n+\cdots+a_0q^n|
+            \le (n+1)\max\{|a_i|\}\max\{|p|,|q|\}^n
+    \end{equation*}
+    and
+    \begin{equation*}
+        |(b_mp^m+\cdots+b_0q^m)q^{n-m}|
+            \le (m+1)\max\{|b_j|\}\max\{|p|,|q|\}^n,
+    \end{equation*}
+    so $H(f(\alpha))\le c_1H(\alpha)^n$ where
+    $c_1=(n+1)\max(\{|a_i|\}\cup\{|b_j|\})$. On the other hand, since $A(S,1)$
+    and $B(S,1)$ are coprime in $\Q[S]$ we have some $\phi(S),\psi(S)\in\Z[S]$
+    with
+    \begin{equation*}
+        A(S,1)\phi(S)+B(S,1)\psi(S) = d_1\in\Z_{>0}.
+    \end{equation*}
+    By homogenizing terms, we get some
+    $\tilde\phi(S,T),\tilde\psi(S,T)\in\Z[S,T]$ homogeneous of degree $N-n$ with
+    \begin{equation*}
+        A(S,T)\tilde\phi(S,T) + B(S,T)\tilde\psi(S,T) = d_1T^N
+    \end{equation*}
+    for a sufficiently large $N>n$. We also have that $A(1,T)$ and $B(1,T)$ are
+    coprime in $\Q[T]$, and so for $N$ large enough we also get
+    $\tilde\phi'(S,T),\tilde\psi'(S,T)\in\Z[S,T]$ homogeneous of degree $N-n$
+    with
+    \begin{equation*}
+        A(S,T)\tilde\phi'(S,T) + B(S,T)\tilde\psi'(S,T) = d_2S^N,
+    \end{equation*}
+    where $d_2\in\Z_{>0}$. Now $\gcd\{A(p,q),B(p,q)\}$ divides $d_1p^N$ and
+    $d_2q^N$, and hence also $d_1d_2$ since $p$ and $q$ are coprime. Then we
+    have
+    \begin{equation*}
+        H(f(\alpha)) \ge \frac{1}{d_1d_2}\max\{|A(p,q)|,|B(p,q)|\},
+    \end{equation*}
+    and
+    \begin{align*}
+        d_1|p|^N
+            &\le |A(p,q)||\tilde\phi(p,q)| + |B(p,q)||\tilde\psi(p,q)| \\
+            &\le 2g_1\max\{|A(p,q)|,|B(p,q)|\}\max\{|p|,|q|\}^{N-n}
+    \end{align*}
+    where $g_1$ is the maximal size of the coefficients in $\tilde\phi(S,T)$ and
+    $\tilde\psi(S,T)$ multiplied by the number of monomials in both. Similarly
+    \begin{equation*}
+        d_2|q|^N \le 2g_2\max\{|A(p,q)|,|B(p,q)|\}\max\{|p|,|q|\}^{N-n}
+    \end{equation*}
+    for some constant $g_2$, and hence $H(f(\alpha))\ge c_2H(\alpha)^n$ where
+    $c_2=\frac{1}{2\max\{g_1d_2,g_2d_1\}}$.
+\end{proof}
+
+\begin{definition}
+    Let $E:y^2=x^3+Ax+B$ be an elliptic curve over $\Q$, and suppose
+    $P=(x_0,y_0)\in E(\Q)$. The \emph{naive height} of $P$ is
+    $h_E(P)=h_\Q(x_0)$. (If $P=\O$ then $h_E(P)=0$.)
+\end{definition}
+
+\begin{lemma}
+    For all $c>0$, the set $\{P\in E(\Q):h_E(P)<c\}$ is finite.
+\end{lemma}
+
+\begin{proof}
+    This is immediate from Proposition 16(v).
+\end{proof}
+
+\begin{lemma}
+    For $m\ge1$ we have
+    \begin{equation*}
+        h_E(mP) = m^2h_E(P) + O(1),
+    \end{equation*}
+    i.e. there is a constant $c$ such that
+    \begin{equation*}
+        m^2h_E(P) - c \le h_E(mP) \le m^2h_E(P) + c
+    \end{equation*}
+    for all $P\in E(\Q)$.
+\end{lemma}
+
+\begin{proof}
+    This follows from Proposition 16, and the following lemma.
+\end{proof}
+
+\begin{lemma}
+    For each $m\ge1$ there is an $f(x)\in\Q(x)$ of degree $m^2$ such that if
+    $P=(x_0,y_0)\in E(\Q)$ then $mP=(f(x_0),\cdots)$.
+\end{lemma}
+
+\begin{proof}
+    Applying the group law $m$ times gives $\X_m(x,y),\Y_m(x,y)\in\Q(x,y)$ such
+    that for $P=(x_0,y_0)$ we have $mP=(\X_m(x_0,y_0),\Y_m(x_0,y_0))$.
+
+    Now since $y^2=x^3+Ax+B$ on $E$, and $1,y$ is a basis for $\Q(x,y)$ over
+    $\Q(x,y^2)$, we can assume
+    \begin{equation*}
+        \X_m(x,y) = g_1(x) + yg_2(x)
+    \end{equation*}
+    for some $g_1(x),g_2(x)\in\Q(x)$. By the uniformization theorem we have
+    $E_\C\simeq E_\Lambda$ for some $\Lambda$, and by Proposition 2(ii) this
+    isomorphism is given by a linear change of variables which due to the form
+    of our equations preserves the given condition on $\X_m$ and $\Y_m$. Hence
+    we may assume $E=E_\Lambda$, where we have
+    \begin{equation*}
+        P = (x_0,y_0) = (\wp(z),\frac{1}{2}\wp'(z))
+    \end{equation*}
+    and
+    \begin{equation*}
+        mP = (\X_m(x_0,y_0),\Y_m(x_0,y_0)) = (\wp(mz),\frac{1}{2}\wp'(mz))
+    \end{equation*}
+    according to the isomorphism with $\C/\Lambda$. Then
+    $\wp(mz)=g_1(\wp(z))+\frac{1}{2}\wp'(z)g_2(\wp(z))$, and since
+    $\wp(mz)$ is even we must have $g_2(x)=0$. Writing
+    \begin{equation*}
+        g_1(\wp(z)) = \frac{\prod_i(\wp(z)-\alpha_i)}{\prod_j(\wp(z)-\beta_j)}
+    \end{equation*}
+    we see that $g_1(\wp(z))$ has $2\deg g_1$ poles; each factor in the
+    denominator has two zeros by Lemma 8, and excess of factors in the numerator
+    contributes multiples of the double pole of $\wp(z)$. As $\wp(mz)$ has $m^2$
+    double poles, we must have $\deg g_1=m^2$.
+\end{proof}
+
+\begin{theorem}[Parallelogram Law]
+    Let $E:y^2=x^3+Ax+B$ be an elliptic curve over $\Q$. Then for $P,Q\in E(\Q)$
+    we have
+    \begin{equation*}
+        h(P\oplus Q) + h(P\ominus Q) = 2h(P) + 2h(Q) + O(1).
+    \end{equation*}
+\end{theorem}
+
+\begin{proof}
+    By applying the transformation $P=P'\oplus Q'$, $Q=P'\ominus Q'$ it suffices
+    to prove the claim with $\le$ in place of $=$. The proof is omitted.
+\end{proof}
+
+\begin{theorem}
+    Let $E:y^2=x^3+Ax+B$ be an elliptic curve over $\Q$. There is a unique
+    function $\hat h:E(\Q)\to\R$, called the canonical height, such that:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\hat h(P)=h(P)+O(1)$, and
+        \item $\hat h(mP)=m^2\hat h(P)$ for each $P\in E(\Q)$.
+    \end{enumerate}
+    Moreover, it satisfies:
+    \begin{enumerate}[label=(\roman*)]
+        \setcounter{enumi}{3}
+        \item For each $c>0$ the set $\{P\in E(\Q):\hat h(P)<c\}$ is
+            finite.
+
+        \item The parallelogram law for $\hat h$ is satisfied exactly.
+
+        \item We have $\hat h(P)\ge0$, with equality iff $P$ has finite
+            order.
+
+        \item The height pairing
+            $\langle P,Q\rangle=\hat h(P\oplus Q)-\hat h(P)-\hat h(Q)$ is
+            bilinear.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Suppose $\hat h$ and $\hat h'$ satisfy (i) and (ii). If
+    $\hat h(P)\ne\hat h'(P)$ for some $P\in E(\Q)$, then by (ii) with $m=2$ we
+    have
+    \begin{equation*}
+        \hat h(2^nP)-\hat h'(2^nP) = 4^n\hat h(P)-\hat h'(P).
+    \end{equation*}
+    This is unbounded as $n$ varies, contradicting the fact that
+    $\hat h(P)-\hat h'(P)=O(1)$ from (i). To prove existence, define
+    $\hat h(P)=\lim_{n\to\infty}\frac{1}{4^n}h(2^nP)$. By the parallelogram
+    law $h(2^nP)=4^nh(P)+O(1)$, which shows that the limit converges and
+    $\hat h(P)=h(P)+O(1)$. By construction (ii) holds for $m=2$. Now for a
+    given $k\ge1$, define
+    \begin{equation*}
+        \hat h'(P) = \frac{1}{k^2}\hat h(kP).
+    \end{equation*}
+    This satisfies (i), and (ii) with $m=2$. Since the proof of uniqueness only
+    used the $m=2$ case of (ii) we have $\hat h'=\hat h$, proving (ii) for
+    $\hat h$ with $m=k$. As $k$ was arbitrary this proves (ii). The properties
+    (iv) and (v) are clear from (i) and the corresponding facts about the naive
+    height, while (vii) is a consequence of the parallelogram law. For (vi) the
+    inequality is clear, and if $\hat h(P)=0$ then $h(mP)$ is bounded as $m$
+    varies by (i) and (ii), so $\{mP:m\ge1\}$ is a finite set.
+\end{proof}
+
+\begin{corollary}
+    Elliptic curves over $\Q$ have only finitely many points of finite order.
+\end{corollary}
+
+\begin{lemma}
+    Let $A$ be a countable abelian group with no elements of finite order, and
+    $h:\A\to\R$ a positive-definite quadratic form such that
+    \begin{equation*}
+        \{p\in\A:h(p)<c\}
+    \end{equation*}
+    is finite for each $c>0$. Then $\A\simeq\Z^{\oplus n}$ for some $n\in\N$ or
+    $\A\simeq\Z^{\oplus\N}$.
+\end{lemma}
+
+\begin{theorem}
+    Let $E/\Q$ be an elliptic curve. Then $E(\Q)\simeq\Delta\times\Z^n$ or
+    $\Delta\times\Z^\N$ for some finite group $\Delta$.
+\end{theorem}
+
+\begin{proof}
+    If $\Delta$ is the torsion subgroup of $E(\Q)$, then by Corollary 22 it is a
+    finite group, and by Theorem 21 the canonical height is a positive-definite
+    quadratic form on $E(\Q)/\Delta$, so we can apply Lemma 23.
+\end{proof}
+
+\begin{lemma}
+    ~
+    \begin{enumerate}[label=(\roman*)]
+        \item $P\in E(\Q)$ has infinite order iff $\hat h(P)\ne0$.
+        \item $P_1,\ldots,P_n\in E(\Q)$ are linearly independent iff
+            $\det(\langle P_i,P_j\rangle)\ne0$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    This follows from Theorem 21.
+\end{proof}
+
+\subsection*{Exercises}
+
+\begin{enumerate}
+    \item[+1.] Let $E/\Q$ be an elliptic curve given by $E:y^2=x^3+Ax+B$, and
+        let $P\in E(\Q)$. For $n\ge1$ write $nP=(x_n,y_n)$. Use the canonical
+        height to prove that
+        \begin{equation*}
+            h_\Q(x_n) = n^2a+O(1),
+        \end{equation*}
+        where the constant $a\in\R$ and the error term $O(1)$ may depend on $E$
+        and $P$, but not on $n$.
+
+    \item[+2.] Let $E/\Q$ be the elliptic curve given by $y^2=(x+1)(x+4)(x-5)$.
+        Assuming that its group of rational points is isomorphic to
+        $C_2\times C_2\times\Z$, prove that it is generated by $(-1,0)$, $(5,0)$
+        and $Q=(-3,4)$. You may assume that for this curve
+        \begin{equation*}
+            -5.60 \le h(P) - \hat h(P) \le 1.58
+        \end{equation*}
+        for all $P\in E(\Q)$, and may find it helpful to know that $10Q$ has
+        $x$-coordinate
+        \begin{equation*}
+            \frac{661822357518174342999917659646891158606732140305553705}
+                {31166866709725719871202723091110962265223527659785616}.
+        \end{equation*}
+        (\textit{Hint: Find an upper bound on $h(R)$ for the generator $R$ of
+        the copy of $\Z$ in $E(\Q)$.})
+
+    \item[3.] Prove that the two definitions of height on $\Q$ agree, i.e. that
+        for $x=\frac{n}{m}$ with $n,m\in\Z\setminus\{0\}$ coprime,
+        \begin{equation*}
+            \max(|n|,|m|) = \max(1,|x|)\cdot\prod_p\max(1,|x|_p)
+            \qquad \text{where $|p^r\tfrac{a}{b}|_p=p^{-r}$ for $p\nmid a,b$.}
+        \end{equation*}
+
+    \item[4.]
+        \begin{enumerate}[label=(\roman*)]
+            \item Show that the number of rational points on an elliptic curve
+                $E:y^2=x^3+Ax+B$ of height up to $X$ is asymptotically
+                $C\cdot X^{r/2}$, where $r$ is the rank of $E/\Q$ and $C\in\R$
+                is some constant.
+
+            \item Show that
+                $C=|E(\Q)_\tors|\cdot\frac{\pi^{r/2}}{\Gamma(\frac{r}{2}+1)}
+                \cdot\frac{1}{\sqrt{\Reg(E/\Q)}}$, where $E(\Q)_\tors$ is the
+                torsion subgroup of points of finite order of $E(\Q)$ and
+                $\Reg(E/\Q)$ is the \emph{regulator} of $E/\Q$, defined as
+                \begin{equation*}
+                    \Reg(E/\Q) = \det\begin{pmatrix}
+                        \langle P_1,P_1\rangle & \langle P_1,P_2\rangle
+                            & \cdots & \langle P_1,P_r\rangle \\
+                        \vdots & & & \vdots \\
+                        \langle P_r,P_1\rangle & \langle P_r,P_2\rangle
+                            & \cdots & \langle P_r,P_r\rangle
+                    \end{pmatrix}
+                \end{equation*}
+                for any basis $P_1,\ldots,P_r$ of $E(\Q)/E(\Q)_\tors$ and where
+                $\langle,\rangle$ is the height pairing.
+
+                (\textit{The volume of an $n$-sphere of radius $R$ is
+                $\frac{\pi^{n/2}}{\Gamma(\frac{n}{2}+1)}R^n$.})
+        \end{enumerate}
+
+    \item[!5.] Either
+        \begin{enumerate}[label=(\roman*)]
+            \item Show that there are elliptic curves over $\Q$ with arbitrarily
+                large rank, or
+            \item Show that ranks of elliptic curves over $\Q$ are bounded.
+        \end{enumerate}
 \end{enumerate}
 
 \end{document}
