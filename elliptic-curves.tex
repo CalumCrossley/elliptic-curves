@@ -1321,14 +1321,16 @@ Note that $K$ may have cardinality too large to embed into $\C$.
             \begin{equation*}
                 h_\Q(x_n) = \hat h(nP) + O(1),
             \end{equation*}
-            where the error terms $O(1)$ only depends on $E$. Then using the
+            where the error term $O(1)$ only depends on $E$. Then using the
             second defining property, we have
             \begin{equation*}
                 h_\Q(x_n)
                     = \hat h(nP) + O(1)
                     = n^2\hat h(P) + O(1),
             \end{equation*}
-            so $a=\hat h(P)$ suffices.
+            so $a=\hat h(P)$ suffices. The error term $O(1)$ here is just that
+            from $h_\Q(x_n)=\hat h(nP)+O(1)$, which may depend on $E$ but does
+            not depend on the point in question.
         \end{proof}
 
     \item[+2.] Let $E/\Q$ be the elliptic curve given by $y^2=(x+1)(x+4)(x-5)$.
