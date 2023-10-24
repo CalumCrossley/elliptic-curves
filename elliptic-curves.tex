@@ -1317,20 +1317,14 @@ Note that $K$ may have cardinality too large to embed into $\C$.
         and $P$, but not on $n$.
 
         \begin{proof}[Solution]
-            By the first defining property of the canonical height we have
-            \begin{equation*}
-                h_\Q(x_n) = \hat h(nP) + O(1),
-            \end{equation*}
-            where the error term $O(1)$ only depends on $E$. Then using the
-            second defining property, we have
+            We have
             \begin{equation*}
                 h_\Q(x_n)
                     = \hat h(nP) + O(1)
                     = n^2\hat h(P) + O(1),
             \end{equation*}
-            so $a=\hat h(P)$ suffices. The error term $O(1)$ here is just that
-            from $h_\Q(x_n)=\hat h(nP)+O(1)$, which may depend on $E$ but does
-            not depend on the point in question.
+            where the error term $O(1)$ doesn't depend on the point $nP$, so
+            $a=\hat h(P)$ suffices.
         \end{proof}
 
     \item[+2.] Let $E/\Q$ be the elliptic curve given by $y^2=(x+1)(x+4)(x-5)$.
@@ -1348,6 +1342,60 @@ Note that $K$ may have cardinality too large to embed into $\C$.
         \end{equation*}
         (\textit{Hint: Find an upper bound on $h(R)$ for the generator $R$ of
         the copy of $\Z$ in $E(\Q)$.})
+
+        \begin{proof}[Solution]
+            The two given points of order 2 must generate $C_2\times C_2$. Let
+            $R$ denote a generator for the copy of $\Z$ in $E(\Q)$, and suppose
+            $Q=P\oplus nR$ where $P$ is torsion and $n\in\Z$. If $|n|=1$ we are
+            done, so assume $|n|\ge2$. We have
+            $\hat h(Q)=\hat h(nR)=n^2\hat h(R)$ since the bilinear height
+            pairing satisfies $2\langle P,Q\rangle=\langle2P,Q\rangle=0$.
+            Counting digits in the above fraction gives $h(10Q)\le54\log10$, so
+            \begin{align*}
+                h(R)
+                    &\le 1.58 + \hat h(R)
+                    = 1.58 + \frac{\hat h(10Q)}{100n^2} \\
+                    &\le 1.58 + \frac{\hat h(10Q)}{400} \\
+                    &\le 1.58 + \frac{h(10Q) + 5.60}{400} \\
+                    &\le 1.58 + \frac{54\log10+5.60}{400}.
+            \end{align*}
+            Then $H(R)\le\exp(1.58+\frac{54\log10+5.60}{400})\le6.72$, i.e.
+            $H(R)\le6$. Since rational points of $E$ have either $-4\le x\le-1$
+            or $x\ge5$, the possibilities for the $x$-coordinate of $R$ are:
+            \begin{center}
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    $x$ & $(x+1)(x+4)(x-5)$ & $\exists y$ \\
+                    \hline
+                    $+5/1$ & $0$ & yes \\
+                    \hline
+                    $+6/1$ & $70$ & no \\
+                    \hline
+                    $-1/1$ & $0$ & yes \\
+                    \hline
+                    $-2/1$ & $14$ & no \\
+                    \hline
+                    $-3/1$ & $16$ & yes \\
+                    \hline
+                    $-3/2$ & $65/8$ & no \\
+                    \hline
+                    $-4/1$ & $0$ & yes \\
+                    \hline
+                    $-4/3$ & $152/27$ & no \\
+                    \hline
+                    $-5/2$ & $135/8$ & no \\
+                    \hline
+                    $-5/3$ & $280/27$ & no \\
+                    \hline
+                    $-5/4$ & $275/64$ & no \\
+                    \hline
+                    $-6/5$ & $434/125$ & no \\
+                    \hline
+                \end{tabular}
+            \end{center}
+            The only non-torsion points from this list are $\pm Q$,
+            contradicting $|n|\ge2$ as required.
+        \end{proof}
 
     \item[3.] Prove that the two definitions of height on $\Q$ agree, i.e. that
         for $x=\frac{n}{m}$ with $n,m\in\Z\setminus\{0\}$ coprime,
