@@ -20,6 +20,7 @@
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem{numberremark}[theorem]{Remark}
 \newtheorem*{example}{Example}
 \newtheorem*{exercise}{Exercise}
 
@@ -27,12 +28,19 @@
 \newtheorem*{definition}{Definition}
 \newtheorem*{notation}{Notation}
 
+\DeclareMathOperator{\Disc}{Disc}
 \DeclareMathOperator{\Reg}{Reg}
+\DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\rk}{rk}
 \DeclareMathOperator{\ch}{char}
 
-\newcommand{\tors}{\text{tors}}
+\newcommand{\tors}{\mathrm{tors}}
+\newcommand{\id}{\mathrm{id}}
+
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\q}{\mathfrak{q}}
 \newcommand{\A}{\mathcal{A}}
 \newcommand{\X}{\mathcal{X}}
 \newcommand{\Y}{\mathcal{Y}}
@@ -1142,13 +1150,10 @@ Note that $K$ may have cardinality too large to embed into $\C$.
     $h_E(P)=h_\Q(x_0)$. (If $P=\O$ then $h_E(P)=0$.)
 \end{definition}
 
-\begin{lemma}
-    For all $c>0$, the set $\{P\in E(\Q):h_E(P)<c\}$ is finite.
-\end{lemma}
-
-\begin{proof}
-    This is immediate from Proposition 16(v).
-\end{proof}
+\begin{remark}
+    For all $c>0$, the set $\{P\in E(\Q):h_E(P)<c)\}$ is finite by Proposition
+    16(v).
+\end{remark}
 
 \begin{lemma}
     For $m\ge1$ we have
@@ -1439,5 +1444,307 @@ Note that $K$ may have cardinality too large to embed into $\C$.
             \item Show that ranks of elliptic curves over $\Q$ are bounded.
         \end{enumerate}
 \end{enumerate}
+
+\section{Mordell--Weil Theorem}
+
+\begin{notation}
+    Let $E/K$ be an elliptic curve, and $F/K$ a field extension. For
+    $P=(x_0,y_0)\in E(F)$ write
+    \begin{equation*}
+        K(P) = K(x_0,y_0).
+    \end{equation*}
+    If $F/K$ is Galois, write
+    \begin{equation*}
+        \sigma(P) = (\sigma(x_0),\sigma(y_0))
+    \end{equation*}
+    for $\sigma\in\Gal(F/K)$. Note that $\sigma(P)\in E(F)$ since it satisfies
+    the same equation with coefficients in $K$, and if $P,Q\in E(F)$ then
+    \begin{equation*}
+        \sigma(P\oplus Q)=\sigma(P)\oplus\sigma(Q)
+    \end{equation*}
+    since $\sigma$ sends lines to lines.
+\end{notation}
+
+\begin{lemma}
+    Let $E/K$be an elliptic curve with $K\subseteq\C$. Let $P\in E(K)$ and
+    $n\in\N$.
+    \begin{enumerate}[label=(\roman*)]
+        \item There are $n^2$ points $Q\in E(\C)$ with $nQ=P$.
+        \item $K(Q)$ is algebraic over $K$.
+        \item If $E(K)[n]=\Z/n\Z\times\Z/n\Z$ then
+            \begin{itemize}
+                \item $K(Q_1)=K(Q_2)$ for $nQ_1=nQ_2=P$.
+                \item $K(Q)/K$ is Galois.
+                \item $\Gal(K(Q)/K)\le\Z/n\Z\times\Z/n\Z$.
+            \end{itemize}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Without loss of generality $E:y^2=x^3+Ax+B$ since $\ch K=0$.
+    \begin{enumerate}[label=(\roman*)]
+        \item True by the uniformization theorem.
+        \item Recall from Lemma 18 that if $P=(x_0,y_0)$ then
+            $nP=(f(x_0),\cdots)$ for some $f(x)\in K(x)$. Since $f(x_0)\in K$ we
+            get that $x_0$ is algebraic over $K$, and since $y_0^2=x_0^3+Ax_0+B$
+            we get that $y_0$ is algebraic over $K$.
+
+        \item 
+            \begin{itemize}
+                \item We have
+                    \begin{equation*}
+                        n(Q_1\ominus Q_2)=nQ_1\ominus nQ_2=P\ominus P=\O,
+                    \end{equation*}
+                    so $Q_1=Q_2\oplus T$ with $T\in E(\C)[n]$. By assumption
+                    $E(K)[n]=E(\C)[n]$, so $T\in E(K)[n]$, and hence
+                    $K(Q_1)=K(Q_2\oplus T)\subseteq K(Q_2)$.
+
+                \item If $F/K$ is the Galois closure of $K(Q)$ and
+                    $\sigma\in\Gal(F/K)$, then
+                    \begin{equation*}
+                        n\cdot\sigma(Q) = \sigma(nQ) = \sigma(P) = P,
+                    \end{equation*}
+                    so
+                    \begin{equation*}
+                        \sigma(K(Q)) = K(\sigma(Q)) = K(Q).
+                    \end{equation*}
+                    As this holds for all $\sigma\in\Gal(F/K)$ we get that
+                    $F=K(Q)$ is Galois over $K$.
+
+                \item Set $\sigma(Q)=Q\oplus T_\sigma$, so
+                    $T_\sigma\in E(K)[n]$. The map
+                    \begin{align*}
+                        \Gal(K(Q)/K) &\to E(K)[n] \\
+                        \sigma &\mapsto T_\sigma
+                    \end{align*}
+                    is an injective group homomorphism:
+                    \begin{itemize}
+                        \item Homomorphism: We have
+                            $T_{\sigma\tau}=T_\sigma\oplus T_\tau$ by applying
+                            $\tau\in\Gal(F/K)$ to $\sigma(Q)=Q\oplus T_\sigma$.
+
+                        \item Injective: If $\sigma(Q)=Q$ then $\sigma$ fixes
+                            $K(Q)$, and hence $\sigma=\id$.
+                    \end{itemize}
+            \end{itemize}
+    \end{enumerate}
+\end{proof}
+The strategy for proving the Mordell--Weil theorem is as follows:
+\begin{itemize}
+    \item Enlarge $K$ so that $E(K)[2]=C_2\times C_2$, i.e.
+        $E:y^2=(x-\alpha)(x-\beta)(x-\gamma)$.
+
+    \item Note that $\Gal(K(\frac{1}{2}P)/K)\le C_2\times C_2$, where
+        $K(\frac{1}{2}P)$ means $K(Q)$ for $Q$ satisfying $2Q=P$.
+
+    \item Note that $K(\frac{1}{2}P)/K$ can only ramify at certain primes
+        independent of the point $P$. (The primes dividing the discriminant of
+        the curve.)
+
+    \item Note that there are only finitely many such field extensions.
+
+    \item Note that ``Different points $P$ give different fields
+        $K(\frac{1}{2}P)/K$'', or more correctly we have a finite-to-one map
+        \begin{equation*}
+            E(K)/2E(K) \to \{\text{fields $K(\frac{1}{2}P)$}\}
+        \end{equation*}
+
+    \item Deduce that $E(K)/2E(K)$ is finite.
+
+    \item Using heights we know that $E(K)\cong\Delta\times\Z^n$ where $\Delta$
+        is a finite group and $n$ is possibly infinite. But since $E(K)/2E(K)$
+        is finite we must have that $n$ is finite (as otherwise $(\Z/2\Z)^n$ is
+        not finite.)
+\end{itemize}
+
+\begin{notation}
+    Let $K/\Q$ be a number field (or a local field), and let $\p$ be a prime of
+    $K$ with residue field $\F_\p=\O_K/\p$. For $P=(x_0:\cdots:x_n)\in\P^n(K)$,
+    find an $\alpha\in K$ such that $\alpha x_i\in\O_K$ for all $i$, and
+    $\p\nmid\alpha x_j$ for some $j$. Define the \emph{reduction mod $\p$} of
+    $P$ to be
+    \begin{equation*}
+        \overline P = (\overline{\alpha x_0}:\cdots:\overline{\alpha x_n})
+            \in\P^n(\F_\p).
+    \end{equation*}
+    Note that this is well-defined; different $\alpha$ result in scalar
+    multiples. If $E/K$ is an elliptic curve given by
+    \begin{equation*}
+        y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6 \tag{$*$}
+    \end{equation*}
+    with $a_i\in\O_K$ (or at least $\ord_\p a_i\ge0$), then reduction mod $\p$
+    gives a map
+    \begin{align*}
+        E(K) &\to \overline E(\F_\p) \\
+        (x_0,y_0) &\mapsto \begin{dcases*}
+            (\overline{x_0},\overline{y_0})
+                & if $\p\nmid\frac{1}{x_0},\frac{1}{y_0}$ \\
+            \O & otherwise,
+        \end{dcases*}
+    \end{align*}
+    where $\overline E$ is the (possibly singular) curve obtained by reducing
+    ($*$) mod $\p$. If $\overline E$ is non-singular then this is a group
+    homomorphism (reduction mod $\p$ preserves lines).
+\end{notation}
+
+\begin{lemma}
+    Let $K$ be a number field, and consider an elliptic curve
+    \begin{equation*}
+        E:y^2 = f(x) = (x-\alpha)(x-\beta)(x-\gamma)
+    \end{equation*}
+    with $\alpha,\beta,\gamma\in\O_K$ distinct. If $Q\in E(\overline K)$ with
+    $2Q\in E(K)$ then $K(Q)/K$ can only ramify at primes dividing
+    \begin{equation*}
+        2\Disc(f(x)) = 2(\alpha-\beta)^2(\beta-\gamma)^2(\alpha-\gamma)^2.
+    \end{equation*}
+\end{lemma}
+
+\begin{proof}
+    Let $\p$ be a prime of $K$ with
+    $\p\nmid 2(\alpha-\beta)(\beta-\gamma)(\alpha-\gamma)$. Then $\overline E$
+    is an elilptic curve over $\F_\p$, and
+    \begin{equation*}
+        \overline E(\F_\p)[2]
+            = \{\O,(\overline\alpha,0),(\overline\beta,0),(\overline\gamma,0)\}.
+    \end{equation*}
+    Let $\q$ be a prime of $K(Q)$ lying over $\p$.
+    % TODO: diagram
+    Recall the ramification index is given by $e_{\q/\p}=|I_{\q/\p}|$, where
+    \begin{equation*}
+        I_{\q/\p} = \{\sigma\in\Gal(K(Q)/K)
+            :\text{$\sigma(\q)=\q$ and $\sigma(t)=t\mod\q$ for all
+            $t\in\O_{K(Q)}$}\}
+    \end{equation*}
+    is the inertia group. Hence it suffices to show that $\sigma(Q)=Q$ for all
+    $\sigma\in I_{\q/\p}$, as then $\sigma$ fixes $K(Q)$ so $\sigma=\id$,
+    meaning $I_{\q/\p}$ has order 1. Now for $\sigma\in I_{\q/\p}$, if
+    $Q=(x_0,y_0)$ then
+    \begin{equation*}
+        \sigma(x_0)=x_0\mod\p,\quad\sigma(y_0)=y_0\mod\q
+    \end{equation*}
+    so $\overline{\sigma(Q)}=\overline Q$, and $2\sigma(Q)=\sigma(2Q)=2Q$, and
+    hence $\sigma(Q)=Q\oplus T$ for some $T\in E(K)[2]$. Then
+    $\overline{\sigma(Q)}=\overline Q$ implies $\overline T=\O$, and from the
+    explicit list of points in $E(K)[2]$ we must have $T=\O$. Hence
+    $\sigma(Q)=Q$ as required.
+\end{proof}
+
+\begin{lemma}
+    Let $K$ be a number field.
+    \begin{enumerate}[label=(\roman*)]
+        \item If $a\in\O_K\setminus\{0\}$, and $(a)=\prod_i\p_i^{n_i}$ for
+            distinct primes $\p_i$, then $K(\sqrt a)/K$ ramifies at the $\p_i$
+            where $n_i$ is odd.
+
+        \item If $S$ is a finite set of primes of $K$, then there are only
+            finitely many quadratic extensions that ramify only at primes in
+            $S$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Exercise.
+\end{proof}
+
+\begin{lemma}
+    Let $E/K$ be an elliptic curve over a number field with
+    $E(K)[2]=C_2\times C_2$. The map
+    \begin{align*}
+        E(K)/2E(K) &\to \{F/K:\Gal(F/K)\le C_2\times C_2\} \\
+        P &\mapsto \text{$K(Q)$ where $Q\in E(\overline K)$ with $2Q=P$}
+    \end{align*}
+    is well-defined, and finite-to-one.
+\end{lemma}
+
+\begin{proof}
+    Firstly, we check well-definedness:
+    \begin{itemize}
+        \item The Galois group satisfies the right condition by Lemma 25(iii).
+        \item If $P=2Q=2Q'$ then $K(Q)=K(Q')$ by Lemma 25(iii).
+        \item If $P'=P\oplus 2R$, and $2Q=P$, then $2Q'=P'$ for $Q'=Q\oplus R$,
+            and $K(Q')\subseteq K(Q)$. We get equality by symmetry.
+    \end{itemize}
+    Suppose $P_1,\ldots,P_{17}\in E(K)$ have $P_i=2Q_i$, where
+    $Q_i\in E(\overline K)$, and suppose all $K(Q_i)$ are equal to one field
+    $F$. Write $\Gal(F/K)=\langle\sigma_1,\sigma_2\rangle\le C_2\times C_2$,
+    where possibly $\sigma_i=1$. Then $\sigma_i(Q_j)=Q_j\oplus T$ with
+    $T\in E(K)[2]$, and since $\#E(K)[2]^2=4^2<17$ we must have two points that
+    have the same $T$ for each $\sigma_i$; without loss of generality
+    \begin{align*}
+        \sigma_1(Q_1) &= Q_1\oplus T & \sigma_1(Q_2) &= Q_2\oplus T \\
+        \sigma_2(Q_1) &= Q_1\oplus T' & \sigma_2(Q_2) &= Q_2\oplus T'
+    \end{align*}
+    for some $T,T'\in E(K)[2]$. Then
+    \begin{equation*}
+        \sigma_1(Q_1\ominus Q_2) = Q_1\ominus Q_2 = \sigma_2(Q_1\ominus Q_2),
+    \end{equation*}
+    so $R=Q_1\ominus Q_2\in E(K)$. Hence $P_1\ominus P_2=2R\in 2E(K)$, so the
+    map is at most 16-to-1.
+\end{proof}
+
+\begin{theorem}[Weak Mordell--Weil Theorem]
+    Let $E/K$ be an elliptic curve over a number field, with
+    $E(K)[2]=C_2\times C_2$. Then $E(K)/2E(K)$ is finite.
+\end{theorem}
+
+\begin{proof}
+    Without loss of generality $E:y^2=(x-\alpha)(x-\beta)(x-\gamma)$ with
+    $\alpha,\beta,\gamma\in\O_K$ distinct. By the previous lemma we have a
+    finite-to-one map
+    \begin{equation*}
+        E(K)/2E(K) \to \{F/K:\Gal(F/K)\le C_2\times C_2\}.
+    \end{equation*}
+    Now such $F/K$ must be of the form $K(\sqrt a,\sqrt b)$ for some $a,b\in K$,
+    and must only ramify at finitely many $\p$ (those satisfying
+    $\p\mid2(\alpha-\beta)(\beta-\gamma)(\alpha-\gamma)$). There are only
+    finitely many fields $K(\sqrt a)$, $K(\sqrt b)$ satisfying this ramification
+    property by Lemma 27, and hence only finitely many such
+    $K(\sqrt a,\sqrt b)$. Therefore the codomain of the map is finite, so the
+    domain is finite.
+\end{proof}
+
+\begin{numberremark}
+    By some algebra one can check that $E(K)/2E(K)$ is finite even if
+    $E(K)[2]\ne C_2\times C_2$. (Apply the previous theorem over a splitting
+    field of the cubic, and chase some diagrams.)
+\end{numberremark}
+
+\begin{theorem}[Mordell--Weil Theorem]
+    Let $E/K$ be an elliptic curve over an umber field. Then $E(K)$ is
+    finitely generated.
+\end{theorem}
+
+\begin{proof}
+    Let $F=K(\alpha,\beta,\gamma)$, where
+    $E:y^2=f(x)=(x-\alpha)(x-\beta)(x-\gamma)$. Then by Theorem 23 (over number
+    fields) we have
+    \begin{equation*}
+        E(F) \cong \Delta\times\Z^n
+    \end{equation*}
+    where $\Delta$ is a finite group and $n$ is possibly infinite. Then by
+    Theorem 29 we have that $E(F)/2E(F)$ is finite, so $n$ must be finite.
+    Since $E(K)\le E(F)$, and $E(F)$ is finitely generated, it follows that
+    $E(K)$ is finitely generated. (Once can avoid using heights over number
+    fields when $K=\Q$ by Remark 30.)
+\end{proof}
+
+\begin{example}
+    Consider $E:y^2=x^3-x$ over $\Q$. Now
+    \begin{equation*}
+        E(\Q)[2]=\{\O,(0,0),(1,0),(-1,0)\}=C_2\times C_2,
+    \end{equation*}
+    so $E(\Q)=\Z/n\Z\times\Z/m\Z\times\Z^r$ for some $n,m$ even and $r\ge0$.
+    Our proof of Theorem 29 gives a bound on $r$ as follows: For $P\in E(\Q)$,
+    we have $\Q(\frac{1}{2}P)=\Q(\sqrt a,\sqrt b)$ for some $a,b$, which only
+    ramifies at $p\mid 2\Disc(x^3-x)=-8$, i.e. at $p=2$. Then 2 is the only
+    prime factor of $a$ and $b$, so $\Q(\frac{1}{2}P)\subseteq\Q(\sqrt2,i)$. By
+    Lemma 28 the map $P\mapsto\Q(\frac{1}{2}P)$ on $E(\Q)/2E(\Q)$ is at most
+    16-to-1, so there are at most 16 elements of $E(\Q)/2E(\Q)$ mapping to a
+    given subfield of $\Q(\sqrt2,i)$. Therefore
+    \begin{equation*}
+        E(\Q)/2E(\Q) \le C_2\times C_2\times C_2\times C_2, % ???
+    \end{equation*}
+    so $\rk(E/\Q)=r\le2$. (In fact $r=0$, which we will be able to prove later.)
+\end{example}
 
 \end{document}
