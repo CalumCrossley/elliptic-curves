@@ -1,6 +1,6 @@
 \documentclass[a4paper]{article}
 
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.9in]{geometry}
 \setlength\parindent{0pt}
 
 \usepackage{mathtools}
@@ -28,6 +28,7 @@
 \newtheorem*{definition}{Definition}
 \newtheorem*{notation}{Notation}
 
+\DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Disc}{Disc}
 \DeclareMathOperator{\Reg}{Reg}
 \DeclareMathOperator{\Gal}{Gal}
@@ -66,7 +67,7 @@ Preparatory information:
 \begin{itemize}
     \item Books: Silverman's ``The Arithmetic of Elliptic Curves''
     \item Prerequisites: basics of Galois theory, basics of number fields,
-        basics of algebraic curves, complex analysis, $p$-adic numbers
+        basics of algebraic curves, complex analysis, and $p$-adic numbers
     \item Exercise sheets: 1 per lecture, 2 out of 5 exercises for assessment
         (marked with a ``+'')
     \item Lectures: 10 of them
@@ -108,9 +109,9 @@ projective space.
         we can decide which (Hasse principle).
 
     \item Genus 1 (this course): The torus. There can be no $\Q$-solutions, or
-        finitely many, or infinitely many. No proven algorithm exists for the
-        general case, although there are algorithms conditional on the
-        Tate--Shafarevich conjecture or the BSD conjecture.
+        finitely many, or infinitely many. No proven algorithm exists for
+        deciding which in general, although there are algorithms conditional on
+        the Tate--Shafarevich conjecture or the BSD conjecture.
 
     \item Genus $\ge2$: There are finitely many $\Q$-solutions by a theorem of
         Faltings.
@@ -701,9 +702,8 @@ via (almost) the most obvious construction.
     \end{equation*}
     Then $f(z)/\tilde f(z)$ has no zeros/poles except possibly on $\Lambda$ by
     Lemma 8(iii). By Lemma 6(iv) then $f(z)/\tilde f(z)$ has no zeros/poles at
-    all, and hence is constant. Therefore $f(z)\in\C(\wp(z))$.
-
-    For (i), write an arbitrary elliptic function $f(z)$ as a sum
+    all, and hence is constant. Therefore $f(z)\in\C(\wp(z))$. For (i), write an
+    arbitrary elliptic function $f(z)$ as a sum
     \begin{equation*}
         f(z) = \frac{f(z)+f(-z)}{2} + \frac{f(z)-f(-z)}{2}
     \end{equation*}
@@ -735,11 +735,11 @@ via (almost) the most obvious construction.
 
 \begin{proof}
     We have
-    \begin{align*}
+    \begin{equation*}
         \frac{1}{(z-w)^2} - \frac{1}{w^2}
-            &= \frac{1}{w^2}\cdot\frac{1}{\bigl(1-\frac{z}{w}\bigr)^2-1} \\
-            &= \frac{1}{w^2}\sum_{k=1}^\infty\frac{2k+1}{w^{2k}}z^{2k}.
-    \end{align*}
+            = \frac{1}{w^2}\cdot\frac{1}{\bigl(1-\frac{z}{w}\bigr)^2-1}
+            = \frac{1}{w^2}\sum_{k=1}^\infty\frac{2k+1}{w^{2k}}z^{2k}.
+    \end{equation*}
     Summing over $w$ gives the result.
 \end{proof}
 
@@ -890,9 +890,9 @@ Note that $K$ may have cardinality too large to embed into $\C$.
         fundamental parallelogram and don't be afraid of logs.})
 
         \begin{proof}[Solution]
-            Assuming $f$ is non-zero, it has finitely many zeros/poles, so we
-            may translate the fundamental parallelogram $\Pi$ so that none lie
-            on its boundary. Then by the residue theorem
+            Assuming $f$ is non-zero it has finitely many zeros/poles, so we
+            may translate it so that none lie on the boundary of the fundamental
+            parallelogram $\Pi$. Then by the residue theorem
             \begin{align*}
                 \frac{1}{2\pi i}\oint_{\partial\Pi}\frac{zf'(z)}{f(z)}dz
                     = \sum_{a\in\Pi}\res_a\frac{zf'(z)}{f(z)}
@@ -911,14 +911,14 @@ Note that $K$ may have cardinality too large to embed into $\C$.
                     &= -\omega_2\int_0^{\omega_1}\frac{f'(z)}{f(z)}dz
                         + \omega_1\int_0^{\omega_2}\frac{f'(z)}{f(z)}dz.
             \end{align*}
-            But the integrals
+            But the integral
             \begin{equation*}
                 \int_0^{\omega_i}\frac{f'(z)}{f(z)}dz
                     = \int_0^{\omega_i}d\log f(z)
             \end{equation*}
-            are the increments of the analytic continuation of the logarithm
-            along $f([0,\omega_i])$; loops based at $f(\omega_i)=f(0)$. These
-            are integer multiples of $2\pi i$, so
+            is the increment of the analytic continuation of the logarithm
+            along $f([0,\omega_i])$; a loop based at $f(\omega_i)=f(0)$. This
+            is an integer multiple of $2\pi i$, so
             $\frac{1}{2\pi i}\oint_{\partial\Pi}\frac{zf'(z)}{f(z)}dz
             \in\Z\omega_2+\Z\omega_1=\Lambda$.
         \end{proof}
@@ -1178,10 +1178,9 @@ Note that $K$ may have cardinality too large to embed into $\C$.
 
 \begin{proof}
     Applying the group law $m$ times gives $\X_m(x,y),\Y_m(x,y)\in\Q(x,y)$ such
-    that for $P=(x_0,y_0)$ we have $mP=(\X_m(x_0,y_0),\Y_m(x_0,y_0))$.
-
-    Now since $y^2=x^3+Ax+B$ on $E$, and $1,y$ is a basis for $\Q(x,y)$ over
-    $\Q(x,y^2)$, we can assume
+    that for $P=(x_0,y_0)$ we have $mP=(\X_m(x_0,y_0),\Y_m(x_0,y_0))$. Now since
+    $y^2=x^3+Ax+B$ on $E$, and $1,y$ is a basis for $\Q(x,y)$ over $\Q(x,y^2)$,
+    we can assume
     \begin{equation*}
         \X_m(x,y) = g_1(x) + yg_2(x)
     \end{equation*}
@@ -1546,7 +1545,7 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     \item Note that ``Different points $P$ give different fields
         $K(\frac{1}{2}P)/K$'', or more correctly we have a finite-to-one map
         \begin{equation*}
-            E(K)/2E(K) \to \{\text{fields $K(\frac{1}{2}P)$}\}
+            E(K)/2E(K) \to \{\text{fields $K(\textstyle\frac{1}{2}P)$}\}
         \end{equation*}
 
     \item Deduce that $E(K)/2E(K)$ is finite.
@@ -1671,8 +1670,8 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     $T\in E(K)[2]$, and since $\#E(K)[2]^2=4^2<17$ we must have two points that
     have the same $T$ for each $\sigma_i$; without loss of generality
     \begin{align*}
-        \sigma_1(Q_1) &= Q_1\oplus T & \sigma_1(Q_2) &= Q_2\oplus T \\
-        \sigma_2(Q_1) &= Q_1\oplus T' & \sigma_2(Q_2) &= Q_2\oplus T'
+        \sigma_1(Q_1) &= Q_1\oplus T \qquad \sigma_1(Q_2) = Q_2\oplus T \\
+        \sigma_2(Q_1) &= Q_1\oplus T' \qquad \sigma_2(Q_2) = Q_2\oplus T'
     \end{align*}
     for some $T,T'\in E(K)[2]$. Then
     \begin{equation*}
@@ -1746,5 +1745,60 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     \end{equation*}
     so $\rk(E/\Q)=r\le2$. (In fact $r=0$, which we will be able to prove later.)
 \end{example}
+
+\subsection*{Exercises}
+
+\begin{enumerate}
+    \item[+1.] Let $E/\Q$ be an elliptic curve over $\Q$ given by
+        \begin{align*}
+            E&:\quad y^2=(x-\alpha)(x-\beta)(x-\gamma) &
+            \alpha,\beta,\gamma&\in\Z.
+        \end{align*}
+        Find a crude\footnote{ideally logarithmic} but completely explicit bound
+        on the rank of $E/\Q$ in terms of $\alpha,\beta,\gamma$.
+
+    \item[+2.] Suppose $A$ is an abelian group with $A/2A$ finite that admits a
+        function $h:A\to\R_{\ge0}$ satisfying
+        \begin{itemize}
+            \item For every $C\in\R$ there are only finitely many $x\in A$ with
+                $h(x)<C$, and
+            \item $h(x+y)+h(x-y)=2h(x)+2h(y)+O(1)$, where the implied constant
+                is independent of $x,y\in A$.
+        \end{itemize}
+        By expressing $x\in A$ as $x=a_1+2a_2+\cdots+2^na_n+2^{n+1}y$, where
+        $a_i$ are fixed representatives for $A/2A$, prove that $A$ must be
+        finitely generated. (This gives an elementary proof that Weak
+        Mordell--Weil plus naive heights implies Mordell--Weil.)
+
+    \item[3.] Let $E/K$ be an elliptic curve over a number field, such that
+        $E(K)[2]\cong C_2\times C_2$. Fix representatives $P_1,\ldots,P_k$ for
+        $E(K)/2E(K)$, and let $Q_i\in E(\bar K)$ satisfy $2Q_i=P_i$. Show that
+        the number field $F=K(Q_1,\ldots,Q_k)$ generated by the $x$- and
+        $y$-coordinates of the $Q_i$ has Galois group of the form
+        $G=\Gal(F/K)\cong C_2\times\cdots\times C_2$.
+
+        Verify that for a fixed $P_i$, the map
+        $f_{P_i}:\sigma\mapsto\sigma(Q_i)\ominus Q_i$ is a homomorphism from $G$
+        to $E(K)[2]$. Show furthermore that the association $P_i\mapsto f_{P_i}$
+        is an injective homomorphism from $E(K)/2E(K)$ to $\Hom(G,E(K)[2])$.
+
+        Deduce that the rank of $E/K$ is at most $2n-2$, where
+        $G\cong C_2\times\cdots\times C_2$ ($n$ times).
+
+    \item[4.] Let $E/K$ be an elliptic curve over a number field given by
+        $y^2=x^3+ax^2+bx+c$. For $d\in K^\times$, the \emph{quadratic twist of
+        $E$ by $d$} is the elliptic curve given by
+        \begin{equation*}
+            E_d:\quad d\cdot y^2=x^3+ax^2+bx+c.
+        \end{equation*}
+        Prove that $E$ and $E_d$ are isomorphic over $K(\sqrt d)$ and that (for
+        $\sqrt d\notin K$)
+        \begin{equation*}
+            \rk E/K(\sqrt d) = \rk E/K + \rk E_d/K.
+        \end{equation*}
+
+    \item[!5.] Prove that $y^2+y=x^3+x^2+x$ has an infinite number of solutions
+        over every cubic field of the form $\Q(\sqrt[3]{m})$ for $m\in\Z$.
+\end{enumerate}
 
 \end{document}
