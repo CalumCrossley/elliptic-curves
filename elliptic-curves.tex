@@ -1773,23 +1773,25 @@ The strategy for proving the Mordell--Weil theorem is as follows:
             $2(\alpha-\beta)(\beta-\gamma)(\alpha-\gamma)$. This is then a
             subfield of $F=\Q(\sqrt{p_1},\ldots,\sqrt{p_N},i)$, and as in
             Exercise 3 we have an injective group homomorphism
-            \begin{equation*}
+            \begin{align*}
                 E(\Q)/2E(\Q) \to \Hom(\Gal(F/\Q),E(\Q)[2])
-                    \cong \overbrace{C_2\times\cdots\times C_2}
+                    &\cong \Hom(\overbrace{C_2\times\cdots\times C_2}
+                        ^{\text{$N+1$ times}},C_2\times C_2) \\
+                    &\cong\overbrace{C_2\times\cdots\times C_2}
                         ^{\text{$2N+2$ times}},
-            \end{equation*}
+            \end{align*}
             implying that the rank of $E/\Q$ is at most $2N$. Now $\log p>1$
-            for primes $p\ge2$, so taking the logarithm of a prime factorization
+            for primes $p>2$, so taking the logarithm of a prime factorization
             we see that
             \begin{equation*}
                 N\le 1 + \log\bigl(
-                    2|\alpha-\beta||\beta-\gamma||\alpha-\gamma|\bigr).
+                    |\alpha-\beta||\beta-\gamma||\alpha-\gamma|\bigr).
             \end{equation*}
             Hence
             \begin{equation*}
                 \rk(E/\Q)
                     \le 2+2\log\bigl(
-                        2|\alpha-\beta||\beta-\gamma||\alpha-\gamma|\bigr).
+                        |\alpha-\beta||\beta-\gamma||\alpha-\gamma|\bigr).
             \end{equation*}
         \end{proof}
 
@@ -1807,11 +1809,38 @@ The strategy for proving the Mordell--Weil theorem is as follows:
         Mordell--Weil plus naive heights implies Mordell--Weil.)
 
         \begin{proof}[Solution]
-            Fix a complete set $S\subseteq A$ of representatives for the
-            elements of $A/2A$. Given $x\in A$, we have a unique $a_1\in S$ with
-            $x-a_1=2y$ for some $y\in A$. Continuing inductively, we get a
-            unique sequence $a_1,a_2,\ldots\in S$ such that
-            $x-a_1-2a_2-\cdots-2^na_n=2^{n+1}y$ for some $y\in A$ for each $n$.
+            Let $C\in\R$ be such that $|h(x+y)+h(x-y)-2h(x)-2h(y)|\le C$ for
+            all $x,y\in A$. Fix a complete set $S\subseteq A$ of representatives
+            for the elements of $A/2A$. Given $x\in A$, we have some $a_1\in S$
+            with $x+a_1=2y$ for some $y\in A$, and continuing inductively we get
+            $a_1,a_2,\ldots\in S$ sastifying $x+a_1+2a_2+\cdots+2^na_n=2^{n+1}y$
+            for some $y\in A$ for each $n$. Now
+            \begin{align*}
+                h(2^{n+1}y) = h(2^ny + 2^ny)
+                    &\ge 4h(2^ny) - h(0) - C \\
+                    &\ge 4^{n+1}h(y) - (1 + 4 + 4^2 + \cdots + 4^n)(h(0)+C) \\
+                    &\ge 4^{n+1}(h(y)-h(0)-C),
+            \end{align*}
+            and
+            \begin{align*}
+                h(2^{n+1}y) = h(2^ny+2^ny)
+                    &\le 4h(2^ny) - h(0) + C \\
+                    &\le 4^{n+1}h(y) + (1+4+4^2+\cdots+4^n)(C-h(0)) \\
+                    &\le 4^{n+1}(h(y)-h(0)+C),
+            \end{align*}
+            so we get that
+            \begin{equation*}
+                \biggl|h(y)-\frac{h(2^{n+1}y)}{4^{n+1}}-h(0)\biggr| \le C.
+            \end{equation*}
+            Also
+            \begin{align*}
+                h(2^{n+1}y)
+                    &= h(x+a_1+2a_2+\cdots+2^na_n) \\
+                    &\le 2h(x) + 2h(a_1+2a_2+\cdots+2^na_n) + C \\
+                    &\le 2h(x) + 2^2h(a_1) + \cdots + 2^{n+1}h(2^na_n)
+                        + (1+2+2^2+\cdots+2^n)C \\
+                    &\le % TODO
+            \end{align*}
         \end{proof}
 
     \item[3.] Let $E/K$ be an elliptic curve over a number field, such that
@@ -1836,32 +1865,38 @@ The strategy for proving the Mordell--Weil theorem is as follows:
             \end{equation*}
             so $K(Q_i)=K(\sqrt a,\sqrt b)$ for some $a,b\in K$. Therefore $F$ is
             given by adjoining at most $2k$ square roots to $K$, and hence $G$
-            is isomorphic to a product of at most $2k$ copies of $C_2$. Now for
-            the maps $f_{P_i}$, since $\sigma(P_i)=P_i$ we get
+            is isomorphic to a product of at most $2k$ copies of $C_2$. Now the
+            maps $f_{P_i}$ are independent of the choice of $Q_i$, since if
+            $2Q'_i=P_i$ then $Q_i\ominus Q'_i\in E(F)[2]$, and $E(F)[2]=E(K)[2]$
+            since $E(K)[2]\cong C_2\times C_2$, so $Q_i\ominus Q'_i\in E(K)$.
+            Hence for $\sigma\in G$ we have
             \begin{equation*}
-                2f_{P_i}(\sigma) = \sigma(P_i)\ominus P_i = 0
+                \sigma(Q_i\ominus Q'_i)\ominus(Q_i\ominus Q'_i)
+                    = (Q_i\ominus Q'_i)\ominus(Q_i\ominus Q'_i)
+                    = 0,
             \end{equation*}
-            and
+            so $\sigma(Q_i)\ominus Q_i=\sigma(Q'_i)\ominus Q'_i$. Also
+            $2f_{P_i}(\sigma)=\sigma(P_i)\ominus P_i=0$, and
             \begin{align*}
                 f_{P_i}(\sigma\tau)
                     &= \sigma\tau(Q_i)\ominus Q_i \\
-                    &= (\sigma\tau(Q_i)\ominus\tau(Q_i)) % TODO: wrong
+                    &= (\sigma\tau(Q_i)\ominus\tau(Q_i))
                         \oplus (\tau(Q_i)\ominus Q_i) \\
                     &= f_{\tau(P_i)}(\sigma) \oplus f_{P_i}(\tau) \\
                     &= f_{P_i}(\sigma) \oplus f_{P_i}(\tau),
             \end{align*}
-            so $f_{P_i}(\sigma)\in E(F)[2]=E(K)[2]$ since
-            $E(K)[2]\cong C_2\times C_2$, and $f_{P_i}$ is a homomorphism.
-            Moreover
+            so $f_{P_i}(\sigma)\in E(F)[2]=E(K)[2]$ and $f_{P_i}$ is a
+            homomorphism $G\to E(K)[2]$. Moreover
             \begin{align*}
                 f_{P_i\oplus P_j}(\sigma)
                     &= \sigma(Q_i\oplus Q_j)\ominus Q_i\ominus Q_j \\
                     &= \sigma(Q_i)\oplus\sigma(Q_j)\ominus Q_i\ominus Q_j \\
                     &= f_{P_i}(\sigma)\oplus f_{P_j}(\sigma),
             \end{align*}
-            so this gives a homomorphism $E(K)/2E(K)\to\Hom(G,E(K)[2])$, and if
+            so this gives a homomorphism $E(K)/2E(K)\to\Hom(G,E(K)[2])$. If
             $f_{P_i}=0$ then $\sigma(Q_i)=Q_i$ for all $\sigma\in G$, and hence
-            $Q_i\in E(K)$, so $P_i\in 2E(K)$. Therefore it is injective.
+            $Q_i\in E(K)$, so $P_i\in 2E(K)$. Therefore this homomorphism is
+            injective.
 
             Now by the Mordell--Weil Theorem we have $E(K)\cong\Delta\times\Z^r$
             for some finite group $\Delta$, where $r$ is the rank. Then
