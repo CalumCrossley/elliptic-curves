@@ -1809,12 +1809,12 @@ The strategy for proving the Mordell--Weil theorem is as follows:
         Mordell--Weil plus naive heights implies Mordell--Weil.)
 
         \begin{proof}[Solution]
-            Let $C\in\R$ be such that $|h(x+y)+h(x-y)-2h(x)-2h(y)|\le C$ for
-            all $x,y\in A$. Fix a complete set $S\subseteq A$ of representatives
-            for the elements of $A/2A$. Given $x\in A$, we have some $a_1\in S$
-            with $x+a_1=2y$ for some $y\in A$, and continuing inductively we get
-            $a_1,a_2,\ldots\in S$ sastifying $x+a_1+2a_2+\cdots+2^na_n=2^{n+1}y$
-            for some $y\in A$ for each $n$. Now
+            Let $C>0$ such that $|h(x+y)+h(x-y)-2h(x)-2h(y)|\le C$ for all
+            $x,y\in A$. Fix a complete set $S\subseteq A$ of representatives for
+            the elements of $A/2A$. Given $x\in A$, we have some $a_0\in S$ with
+            $x+a_0=2y$ for some $y\in A$, and continuing inductively we get
+            $a_0,a_1,\ldots\in S$ sastifying $x+a_0+2a_1+\cdots+2^na_n=2^{n+1}y$
+            for some $y\in A$ for each $n$. 
             \begin{align*}
                 h(2^{n+1}y) = h(2^ny + 2^ny)
                     &\ge 4h(2^ny) - h(0) - C \\
@@ -1832,15 +1832,37 @@ The strategy for proving the Mordell--Weil theorem is as follows:
             \begin{equation*}
                 \biggl|h(y)-\frac{h(2^{n+1}y)}{4^{n+1}}-h(0)\biggr| \le C.
             \end{equation*}
-            Also
+            Then
             \begin{align*}
                 h(2^{n+1}y)
-                    &= h(x+a_1+2a_2+\cdots+2^na_n) \\
-                    &\le 2h(x) + 2h(a_1+2a_2+\cdots+2^na_n) + C \\
-                    &\le 2h(x) + 2^2h(a_1) + \cdots + 2^{n+1}h(2^na_n)
-                        + (1+2+2^2+\cdots+2^n)C \\
-                    &\le % TODO
+                    &= h(x+a_0+2a_1+\cdots+2^na_n) \\
+                    &\le 2h(2^na_n) + 2h(x+a_0+2a_1+\cdots+2^{n-1}a_{n-1}) + C \\
+                    &\le 2h(2^na_n) + 2^2h(2^{n-1}a_{n-1}) + \cdots
+                        + 2^{n+1}h(a_0) + 2^{n+1}h(x) + (1+2+2^2+\cdots+2^n)C \\
+                    &\le 2\cdot4^n\bigl(h(a_n)+C-h(0)\bigr) \\
+                    &\qquad + 2^2\cdot4^{n-1}\bigl(h(a_{n-1})+C-h(0)\bigr) \\
+                    &\qquad + \cdots \\
+                    &\qquad + 2^n\cdot4^1\bigl(h(a_1)+C-h(0)\bigr)
+                        + 2^{n+1}h(a_0) + 2^{n+1}h(x) + 2^{n+1}C \\
+                    &\le 2^{2n+1}\cdot\max_{a\in S}\bigl(h(a)+C-h(0)\bigr)
+                        + 2^{n+1}(h(x)+C),
             \end{align*}
+            noting that $h(a_0)\le h(a_0)+C-h(0)$ since $|2h(0)-4h(0)|\le C$
+            implies $h(0)\le\frac{C}{2}$. Hence
+            \begin{align*}
+                h(y)
+                    &\le 4^{-n-1}h(2^{n+1}y) + h(0) + C \\
+                    &\le 2^{-1}\cdot\max_{a\in S}\bigl(h(a)+C-h(0)\bigr)
+                        + 2^{-n-1}(h(x)+C),
+            \end{align*}
+            so for $n$ large enough we have
+            \begin{equation*}
+                h(y) \le 2^{-1}\cdot\max_{a\in S}\bigl(h(a)+C-h(0)\bigr) + 1.
+            \end{equation*}
+            Now the $T\subseteq A$ of $y\in A$ satisfying this inequality is
+            finite, and since $f$ is a linear combination of
+            $a_0,a_1,\ldots\in S$ and $y\in T$, we see that the finite set
+            $S\cup T$ generates $A$.
         \end{proof}
 
     \item[3.] Let $E/K$ be an elliptic curve over a number field, such that
