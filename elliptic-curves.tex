@@ -12,21 +12,18 @@
 \usepackage{subcaption}
 \usepackage{amssymb} % \nmid
 
-\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 
-\theoremstyle{remark}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{notation}{Notation}
 \newtheorem*{remark}{Remark}
 \newtheorem{numberremark}[theorem]{Remark}
 \newtheorem*{example}{Example}
 \newtheorem*{exercise}{Exercise}
-
-\theoremstyle{definition}
-\newtheorem*{definition}{Definition}
-\newtheorem*{notation}{Notation}
 
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Disc}{Disc}
@@ -39,6 +36,7 @@
 
 \newcommand{\tors}{\mathrm{tors}}
 \newcommand{\id}{\mathrm{id}}
+\newcommand{\ns}{\mathrm{ns}}
 
 \newcommand{\p}{\mathfrak{p}}
 \newcommand{\q}{\mathfrak{q}}
@@ -1947,5 +1945,176 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     \item[!5.] Prove that $y^2+y=x^3+x^2+x$ has an infinite number of solutions
         over every cubic field of the form $\Q(\sqrt[3]{m})$ for $m\in\Z$.
 \end{enumerate}
+
+\section{Reduction mod $p$ and Torsion}
+
+\begin{definition}
+    For $E/K$ given by
+    \begin{equation*}
+        E: y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6 \tag{$*$}
+    \end{equation*}
+    the \emph{discriminant} of $E$ is
+    \begin{equation*}
+        \Delta_E = -b_2^2b_8 - 8b_4^3 - 27b_6^2 + 9b_2b_4b_6,
+    \end{equation*}
+    where
+    \begin{equation*}
+        b_2=a_1^2+4a_2,\,
+        b_4=2a_4+a_1a_3,\,
+        b_6=a_3^2+4a_6,\,
+        b_8=b_2b_6-a_1a_3a_4+a_2a_3^2-a_4^2.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    If $E:y^2=f(x)$, i.e. $a_1=0=a_3$, then $\Delta_E=16\Disc(f)$. If
+    $E:y^2=x^3+Ax+B$ then $\Delta_E=-16(4A^3+27B^2)$.
+\end{remark}
+
+\begin{proposition}
+    \begin{enumerate}[label=(\roman*)]
+        \item $E$ is non-singular iff $\Delta_E\ne0$.
+        \item If $E,E'$ are isomorphic, related by a change of coordinates of
+            the form
+            \begin{equation*}
+                y'=u^3y+sx+t,\,x'=u^2x+r,
+            \end{equation*}
+            then $\Delta_{E'}=u^{12}\Delta_E$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item See Silverman, Ch III, Prop 1.4.
+        \item Computation.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}
+    Let $K$ be a number field (or a non-Archimedean local field), and $\p$ a
+    prime of $K$. Let $E/K$ be given by ($*$). The equation is \emph{integral}
+    at $\p$ if $\ord_\p(a_i)\ge0$ for all $i$. It is \emph{minimal} at $\p$ (or
+    a minimal model for $E$ at $\p$) if it is integral with $\ord_\p\Delta_E$
+    minimal among integral Weierstrass equations in the isomorphism class of
+    $E$. The \emph{reduced curve} at $\p$ is then
+    \begin{equation*}
+        \tilde E/\F_\p : y^2 + \bar a_1xy + \bar a_3y
+            = x^3 + \bar a_2x^2 + \bar a_4x + \bar a_6
+    \end{equation*}
+    for any minimal model, where $\F_\p$ is the residue field at $\p$ and
+    $\bar a_i$ denotes the reduction of $a_i$ mod $\p$.
+\end{definition}
+
+\begin{remark}
+    The minimal model is unique up to transformations of the form
+    \begin{equation*}
+        y'=u^3y+sx_t,\,x'=u^2x+r
+    \end{equation*}
+    where $\ord_\p$ of $u,s,t,r$ is $\ge0$ to preserve integrality and
+    $\ord_\p(u)=0$ to preserve minimality by Proposition 32. This reduces to an
+    isomorphism of reduced curves, so $\tilde E/\F_\p$ is well-defined up to
+    isomorphism.
+\end{remark}
+
+\begin{definition}
+    $E/K$ has \emph{good reduction} at $\p$ if $\tilde E/\F_\p$ is non-singular,
+    and \emph{bad reduction} otherwise. We write
+    \begin{equation*}
+        \tilde E_\ns(\F_\p) \coloneq \tilde E(\F_\p)
+            \setminus\{\text{the singular point if it exists}\}.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    \begin{enumerate}[label=(\roman*)]
+        \item $E$ has good reduction at $\p$ iff $\ord_\p(\Delta_E)=0$ for a
+            minimal model.
+        \item If $E$ is integral at $\p$ and $\ord_\p(\Delta_E)<12$ then $E$ is
+            a minimal model.
+        \item $\tilde E_\ns(\F_\p)$ is an abelian group with identity $\O$ and
+            $P\oplus Q\oplus R=\O$ iff $P,Q,R$ are collinear.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Good reduction is equivalent to $\Delta_{\tilde E}\ne0$ by
+            Proposition 32(i), which is equivalent to $\Delta_E\ne0\mod\p$ for a
+            minimal model.
+
+        \item Follows from Proposition 32(ii).
+
+        \item See Silverman, Ch III, Prop 2.5. (It is clear if $\tilde E$ is
+            non-singular.)
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    We have the following taxonomy of reduction types:
+    \begin{itemize}
+        \item Good reduction
+            $\iff$ $\tilde E$ is non-singular.
+        \item Split multiplicative reduction
+            $\iff$ $\tilde E_\ns(\F_\p)\cong\F_\p^\times$.
+        \item Non-split multiplicative reduction
+            $\iff$
+            $\tilde E_\ns(\F_\p)\cong\F_{q^2}^\times/\F_q^\times\cong C_{q+1}$
+            where $q=|\F_\p|$.
+        \item Additive reduction
+            $\iff$ $\tilde E_\ns(\F_\p)\cong(\F_\p,+)$.
+    \end{itemize}
+    The last three are classified as bad reduction, and the first three are
+    classified as ``semistable'' reduction. When $\p\nmid2$ there is a minimal
+    model of the form $E:y^2=f(x)$, and then we have the following
+    characterizations:
+    \begin{itemize}
+        \item Good reduction $\iff$ $f(x)$ has distinct roots mod $\p$.
+        \item Multiplicative reduction $\iff$ $f(x)$ has a double root mod $\p$.
+            Here $\tilde E$ can be written as $y^2=x^2(x+\eta)$, and
+            $\eta\in(\F_\p^\times)^2$ $\iff$ the reduction is split
+            multiplicative. (This is equivalent to the slopes of the two tangent
+            lines being defined over $\F_\p$.) The isomorphism
+            \begin{equation*}
+                \tilde E_\ns(\F_\p)\cong\F_\p^\times
+                    \quad\text{or}\quad\F_{q^2}^\times/\F_q^\times
+            \end{equation*}
+            is given by $(x,y)\mapsto-y/x$.
+        \item Additive reduction $\iff$ $f(x)$ has a triple root mod $\p$. Here
+            the isomorphism
+            \begin{equation*}
+                \tilde E_\ns(\F_\p)\cong(\F_\p,+)
+            \end{equation*}
+            is given by $(x,y)\mapsto-y/x$.
+    \end{itemize}
+\end{remark}
+
+\begin{example}
+    $E:y^2=x^3-3\cdot5^4x-3\cdot5^6$ has $\Delta_E=-2^4\cdot3^3\cdot5^{13}$, and
+    is integral but not minimal at 5; we can take
+    \begin{equation*}
+        x=5^2x',\,y=5^3y'
+    \end{equation*}
+    to get
+    \begin{equation*}
+        E':y'^2=x'^3-3x'-3
+    \end{equation*}
+    which is integral, and has $\Delta_{E'}=-2^4\cdot3^3\cdot5$, so it is
+    minimal by Proposition 33(ii). The reduced curve is then
+    \begin{equation*}
+        \tilde E:y^2=x^3+2x+2 = (x-1)^2(x+2) / \F_5
+    \end{equation*}
+    which is isomorphic to $y^2=x^2(x+3)$, and hence has multiplicative
+    reduction which is non-split as $3\notin(\F_5^\times)^2$. The points are
+    \begin{equation*}
+        \tilde E(\F_5) = \{\text{the singular point $(1,0)$}\}
+            \cup\{(2,\pm2),(3,0),(4,\pm2),\O\},
+    \end{equation*}
+    and we see $\tilde E_\ns(\F_5)\cong C_6$.
+\end{example}
+
+\begin{remark}
+    We have $\Q\subseteq\Q_p$, so $E(\Q)\subseteq E(\Q_p)$. In this and the
+    following section we will describe $E(\Q_p)$.
+\end{remark}
 
 \end{document}
