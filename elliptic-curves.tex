@@ -11,6 +11,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{amssymb} % \nmid
+\usepackage{derivative}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -2116,5 +2117,186 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     We have $\Q\subseteq\Q_p$, so $E(\Q)\subseteq E(\Q_p)$. In this and the
     following section we will describe $E(\Q_p)$.
 \end{remark}
+
+\begin{definition}
+    Let $E/K$ be an elliptic curve over a non-Archimedean local field (e.g.
+    $\Q_p$). Then
+    \begin{align*}
+        E_0(K) &\coloneq \{P\in E(K)
+            :\text{$P$ reduces to a point in $\tilde E_\ns(\F_\p)$}\} \\
+        E_1(K) &\coloneq \{P\in E(K)
+            :\text{$P$ reduces to $\O\in\tilde E_\ns(\F_\p)$}\}.
+    \end{align*}
+\end{definition}
+
+\begin{lemma}
+    \begin{enumerate}[label=(\roman*)]
+        \item $E_1(K)\le E_0(K)\le E(K)$ are subgroups.
+        \item The reduction mod $\p$ map $P\mapsto\tilde P$ is a homomorphism
+            $E_0(K)\to\tilde E_\ns(\F_\p)$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    The inclusions are clear, $E_0(K)$ is a subgroup since $\tilde E_\ns(\F_\p)$
+    is a group and the reduction map respects the group structure by Proposition
+    33(iii). Then $E_1(K)$ is also a subgroup, being the kernel of the reduction
+    map.
+\end{proof}
+
+\begin{theorem}
+    Let $E/K$ be an elliptic curve over a non-Archimedean local field. Let
+    $n=\ord_\p\Delta_{E'}$ for a minimal model $E'$ of $E$. Then $E(K)/E_0(K)$
+    is finite, and
+    \begin{enumerate}[label=(\roman*)]
+        \item $E(K)/E_0(K)=1$ if $E/K$ has good reduction.
+        \item $E(K)/E_0(K)\cong\Z/n\Z$ if $E/K$ has split multiplicative
+            reduction.
+        \item We have
+            \begin{equation*}
+                E(K)/E_0(K)\cong \begin{dcases*}
+                    1 & $n$ odd \\
+                    \Z/2\Z & $n$ even.
+                \end{dcases*}
+            \end{equation*}
+            if $E/K$ has non-split multiplicative reduction.
+        \item $|E(K)/E_0(K)|\le4$ if $E/K$ has additive reduction.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    (i) is clear. For the rest, see Silverman's ``Advanced Topics...''.
+\end{proof}
+
+\begin{remark}
+    The order $|E(K)/E_0(K)|$ is called the \emph{local Tamagawa number},
+    usually written $c_\p$ or $c(E/K)$. The group $E(K)/E_0(K)$ and its order
+    $c_\p$ are fully determined by ``Tate's algorithm''.
+\end{remark}
+
+\begin{theorem}
+    Let $E/K$ be ane elliptic curve over a non-Archimedean local field, given by
+    a minimal Weierstrass equation. The reduction mod $\p$ map induces an
+    isomorphism
+    \begin{equation*}
+        E_0(K)/E_1(K) \xrightarrow\sim \tilde E_\ns(\F_\p).
+    \end{equation*}
+\end{theorem}
+
+\begin{proof}
+    By Lemma 34 this is a homomorphism, which is injective by the definition of
+    $E_1(K)$, so it suffices to prove surjectivity. Write the equation for $E$
+    as
+    \begin{equation*}
+        E:g(x,y)=0,\quad g(x,y)=y^2+a_1xy+a_3y-x^3-a_2x^2-a_4x-a_6,
+    \end{equation*}
+    with $a_i\in\O_K$. If $P_0=(x_0,y_0)\in\tilde E_\ns(\F_\p)$, we have either
+    $\pdv{g}{x}|_{P_0}\ne0$ or $\pdv{g}{y}|_{P_0}\ne0$. By symmetry, assume
+    $\pdv{g}{y}|_{P_0}\ne0$, and pick some $x\in\O_K$ with $\bar x=x_0$. Then by
+    Hensel's lemma, we can solve $g(x,y)=0$ for $y$ subject to $\bar y=y_0$.
+\end{proof}
+
+\begin{theorem}
+    Let $E/\Q_p$ be an elliptic curve. Then $E_1(\Q_p)$ contains no non-trivial
+    points of finite order, except possibly points of order 2 if $p=2$.
+\end{theorem}
+
+\begin{proof}
+    This will be proved in the next section.
+\end{proof}
+
+\begin{corollary}
+    Let $E/\Q$ be an elliptic curve, with $p$ a prime of good reduction. Then
+    the reduction map
+    \begin{equation*}
+        E(\Q)_\tors \to \tilde E(\F_p)
+    \end{equation*}
+    is injective, except possibly if $p=2$ where it may have kernel contained in
+    $E(\Q)[2]$.
+\end{corollary}
+
+\begin{proof}
+    The kernel is $\bigl(E(\Q)\cap E_1(\Q_p)\bigr)_\tors$. Now apply Theorem 37.
+\end{proof}
+
+\begin{corollary}[Nagell--Lutz Theorem]
+    Let $E/\Q$ be an elliptic curve given by
+    \begin{equation*}
+        y^2 = x^3 + Ax + B,\quad A,B\in\Z.
+    \end{equation*}
+    If $P=(x_0,y_0)$ is a non-trivial point of finite order, then
+    \begin{enumerate}[label=(\roman*)]
+        \item $x_0,y_0\in\Z$, and
+        \item $y_0=0$ or $y_0^2$ divides $4A^3+27B^2$.
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item If $P$ has order 2 then $y_0=0$, and $x_0$ is a root of $x^3+Ax+B$,
+            and hence is an integer by the rational root theorem. Now suppose
+            $P$ has order greater than 2. Let $p$ be a prime, with $E'$ a
+            minimal model at $p$, and let $P'=(x_1,y_1)$ be the corresponding
+            point on $E'$. By Theorem 37 we have $P'\notin E_1(\Q_p)$, so $P'$
+            does not reduce to $\O$, and hence $x_1,y_1\in\Z_p$ are $p$-adic
+            integers. The change of coordinates
+            \begin{equation*}
+                y'=u^3y+sx+t,\,x'=u^2x+r
+            \end{equation*}
+            with some algebra then gives that $x_0,y_0\in\Z_p$. Since
+            $x_0,y_0\in\Q$ it follows that $x_0,y_0\in\Z$.
+
+        \item If $y_0\ne0$ we may check that
+            \begin{equation*}
+                y_0^2(4f(x_0)x_1-g(x_0)) = 4A^3 + 27B^2,
+            \end{equation*}
+            where $f(x)=3x^2+4A$, $g(x)=3x^2-5Ax-27B$, and $x_1$ is the
+            $x$-coordinate of $2P$, which is an integer by (i).
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    Corollaries 38 and 39 give practical ways to determine $E(\Q)_\tors$; either
+    compute $\tilde E(\F_p)$ for a few primes to bound $E(\Q)_\tors$, or
+    factorize $4A^3+27B^2$ for possible $y_0$ and solve for $x_0$.
+\end{remark}
+
+\subsection*{Exercises}
+
+\begin{enumerate}
+    \item[+1.] Let $E/\Q$ be the elliptic curve given by $y^2+y=x^3-x^2$. Show
+        that $E$ has discriminant $-11$ and that it has good reduction at 2 and
+        split multiplicative reduction at 11. Prove that $E(\Q)_\tors\cong C_5$.
+
+        (\textit{Recall from Exercise Sheet 1 that $(0,0)\in E(\Q)$ has order
+        5.})
+
+    \item[+2.] Show that $y^2+y=x^3-x$ has infinitely many rational solutions.
+
+    \item[3.] Show that if $E$ does not have multiplicative reduction at 2, 3 or
+        5, then $|E(\Q)_\tors|\le6$.
+
+    \item[4.] Suppose the elliptic curve $E:y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6$,
+        with $a_i\in\Q$ is integral at $p$. Check that a substitution of the
+        form $x=u^2x'+r$, $y=u^3y'+su^2x'+t$, for $r,s,t\in\Z$ and
+        $u\in\Q^\times$ with $\ord_pu=0$, yields another equation $E'$ that is
+        integral at $p$ and with $\ord_p\Delta_E=\ord_p\Delta_{E'}$.
+
+        Show also that there must be a substitution of this form with
+        $r,s,t\in\Z$ and $u$ purely a power of $p$, that will make the equation
+        minimal at $p$.
+
+        Prove that every elliptic curve over $\Q$ has a model which is minimal
+        at all primes simultaneously. (This is called a \emph{global minimal
+        model}. What goes wrong over larger number fields?)
+
+    \item[!5.] Prove that there is a constant $C\in\R$ such that for every
+        elliptic curve $E/\Q$,
+        \begin{equation*}
+            \Delta_E<C\cdot P_E^{13},
+        \end{equation*}
+        where $\Delta_E$ is the minimal discriminant of $E$ and $P_E$ is the
+        product of the primes at which $E$ has bad reduction.
+\end{enumerate}
 
 \end{document}
