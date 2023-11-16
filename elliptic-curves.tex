@@ -12,6 +12,8 @@
 \usepackage{subcaption}
 \usepackage{amssymb} % \nmid
 \usepackage{derivative}
+\usepackage{tikz-cd}
+\usepackage{cancel}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -24,6 +26,7 @@
 \newtheorem*{remark}{Remark}
 \newtheorem{numberremark}[theorem]{Remark}
 \newtheorem*{example}{Example}
+\newtheorem*{examples}{Examples}
 \newtheorem*{exercise}{Exercise}
 
 \DeclareMathOperator{\Hom}{Hom}
@@ -34,6 +37,9 @@
 \DeclareMathOperator{\res}{res}
 \DeclareMathOperator{\rk}{rk}
 \DeclareMathOperator{\ch}{char}
+
+\newcommand{\series}[2]{#1[\![#2]\!]}
+\newcommand{\lseries}[2]{#1(\!(#2)\!)}
 
 \newcommand{\tors}{\mathrm{tors}}
 \newcommand{\id}{\mathrm{id}}
@@ -47,7 +53,9 @@
 \renewcommand{\P}{\mathbb{P}}
 \renewcommand{\O}{\mathcal{O}}
 \newcommand{\E}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
 \newcommand{\F}{\mathbb{F}}
+\newcommand{\G}{\mathbb{G}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
@@ -2284,7 +2292,18 @@ The strategy for proving the Mordell--Weil theorem is as follows:
             \end{equation*}
             so $E$ is given by $(y-5)^2=x^3-x^2+3=(x-8)^2(x-7)$. This is
             singular at $(8,5)$ from the double root of $(x-8)^2(x-7)$, which
-            implies split multiplicative reduction.
+            implies split multiplicative reduction. Now $E(\Q)[2]=\{\O\}$, since
+            $E:(y+\frac{1}{2})^2=x^3-x^2+\frac{1}{4}$ with the cubic in $x$
+            having no rational root. Hence by Corollary 38 the reduction mod 2
+            map $E(\Q)_\tors\to\tilde E(\F_2)$ is injective. But
+            \begin{align*}
+                \tilde E(\F_2)
+                    &= \{\O\} \cup \{(x,y)\in\F_2^2:y^2+y=x^3+x^2\} \\
+                    &= \{\O\} \cup \F_2^2
+            \end{align*}
+            has order 5, so we see that $E(\Q)_\tors$ is either trivial or
+            $C_5$. Since $(0,0)\in E(\Q)$ is a point of order 5, we see that
+            $E(\Q)_\tors\cong C_5$.
         \end{proof}
 
     \item[+2.] Show that $y^2+y=x^3-x$ has infinitely many rational solutions.
@@ -2314,5 +2333,292 @@ The strategy for proving the Mordell--Weil theorem is as follows:
         where $\Delta_E$ is the minimal discriminant of $E$ and $P_E$ is the
         product of the primes at which $E$ has bad reduction.
 \end{enumerate}
+
+% TODO: remove
+\newpage
+
+\section{Formal Groups}
+
+\begin{proposition}
+    Let $E/\Q_p$ be an elliptic curve given by a minimal Weierstrass equation
+    \begin{equation*}
+        E:y^2+a_1xy+a_3=x^3+a_2x^2+a_4x+a_6,\quad a_i\in\Z_p.
+    \end{equation*}
+    Then
+    \begin{enumerate}[label=(\roman*)]
+        \item
+            \begin{align*}
+                E_1(\Q_p)&\to p\Z_p \\
+                (x_0,y_0)&\mapsto -x_0/y_0 \\
+                \O\mapsto0
+            \end{align*}
+            is a bijection.
+
+    \item There are Laurent series $x(t),y(t)\in\frac{1}{t^3}\series{\Z_p}{t}$
+        such that the inverse of the above map is $t\mapsto(x(t),y(t))$. These
+        are given by
+        \begin{align*}
+            x(t) &= \frac{1}{t^2} - \frac{a_1}{t} - a_2 - a_3t - (a_4+a_1a_3)t^2
+                + \cdots \\
+            y(t) &= -\frac{1}{t^3} + \frac{a_1}{t^2} + \frac{a_2}{t} + a_3
+                + (a_4+a_1a_3)t + \cdots.
+        \end{align*}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Set $w=-1/y$ and $t=-x/y$ to get a chart for $E$ near $\O$ with the
+    following equation:
+    \begin{equation*}
+        w = t^3 + a_1tw + a_2t^2w + a_3w^2 + a_4tw^2 + a_6w^3. \tag{$\dagger$}
+    \end{equation*}
+    In these coordinates $\O$ is $(0,0)$ and $E_1(\Q_p)$ is precisely the set of
+    points with $w,t\in p\Z_p$.
+    \begin{enumerate}[label=(\roman*)]
+        \item For each $t\in p\Z_p$, the equation ($\dagger$) has a unique
+            solution $w(t)\in p\Z_p$ by Hensel's lemma:
+            \begin{equation*}
+                \pdv{}{w}\biggr|_{(0,0)} = 1 \ne 0 \quad \text{in $\F_p$} \quad
+                \implies \text{$\exists!$ lift of $0\in\F_p$ to $w\equiv0$ mod
+                $p$ for any $t\equiv0$ mod $p$.}
+            \end{equation*}
+            So $E_1(\Q_p)\to p\Z_p;(x_0,y_0)\mapsto(t,w)\mapsto t$ is a
+            bijection.
+
+        \item Solving ($\dagger$) for $w(t)\in\series{\Z_p}{t}$ expicitly (again
+            Hensel's lemma) gives
+            \begin{equation*}
+                w(t) = t^3 + a_1t^4 + (a_1^2 + a_2)t^5 + (a_1^3 + 2a_1a_2
+                    + a_3)t^6 + \cdots
+            \end{equation*}
+            Note that this converges for $t\in p\Z_p$ as all the coefficients
+            are integral, so this gives the value of $w(t)$ for $t\in p\Z_p$.
+            Hence
+            \begin{align*}
+                x(t) &= t/w(t) = \frac{1}{t^2} - \frac{a_1}{t} - a_2 - a_3t
+                    - (a_4+a_1a_3)t^2 + \cdots \\
+                y(t) &= -1/w(t) = -\frac{1}{t^3} + \frac{a_1}{t^2}
+                    + \frac{a_2}{t} + a_3 + (a_4+a_1a_3)t + \cdots.
+            \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    Let $E/\Q_p$ be an elliptic curve given by a minimal Weierstrass equation.
+    \begin{equation*}
+        E:y^2+a_1xy+a_3=x^3+a_2x^2+a_4x+a_6,\quad a_i\in\Z_p.
+    \end{equation*}
+    Then
+    \begin{enumerate}[label=(\roman*)]
+        \item There is a power series
+            \begin{equation*}
+                \calF_E(t_1,t_2)
+                    = t_1+t_2-a_1t_1t_2-a_2(t_1^2t_2+t_1t_2^2 + \cdots)
+                    \in \series{\Z[a_1,\ldots,a_6]}{t_1,t_2}
+            \end{equation*}
+            such that for $t_3=\calF_E(t_1,t_2)$, we have
+            \begin{equation*}
+                (x(t_1),y(t_1)) \oplus (x(t_2),y(t_2)) = (x(t_3),y(t_3))
+            \end{equation*}
+            in $E(K)$ for $K=\lseries{\Q(a_1,\ldots,a_6)}{t_1,t_2}$.
+
+        \item There is a unique power series
+            $\iota_E(t)\in\series{\Z[a_1,\ldots,a_6]}{t}$ such that
+            \begin{equation*}
+                \ominus(x(t),y(t)) = (x(\iota_E(t)),y(\iota_E(t))).
+            \end{equation*}
+
+        \item These describe the elliptic curve's addition law on $p\Z_p$:
+            \begin{equation*}
+                \begin{tikzcd}
+                    &(P,Q) \ar[r,mapsto] &P\oplus Q \\
+                    &E_1(\Q_p)\times E_1(\Q_p) \ar[d,"t=-x/y",swap] \ar[r]
+                    &E_1(\Q_p) \ar[d] \\
+                    &p\Z_p\times p\Z_p \ar[r]
+                    &p\Z_p \\
+                    &(t_1,t_2) \ar[r,mapsto] &\calF_E(t_1,t_2)
+                \end{tikzcd}
+                \begin{tikzcd}
+                    &P \ar[r,mapsto] &\ominus P \\
+                    &E_1(\Q_p) \ar[d,"t=-x/y",swap] \ar[r] &E_1(\Q_p) \ar[d] \\
+                    &p\Z_p \ar[r] &p\Z_p \\
+                    &t \ar[r,mapsto] &\iota_E(t)
+                \end{tikzcd}
+            \end{equation*}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Let $(x(t),y(t))\in E(K)$.
+    \begin{enumerate}
+        \item[(ii)] Check details on:
+            \begin{equation*}
+                t(\ominus(x(t),y(t)))
+                    = \frac{x(t)}{y(t)+a_1x(t)+a_3+\cdots}
+                    = \frac{-t^{-2}-a_1t^{-1}+\cdots}{t^{-3}+2a_1t^{-2}+\cdots}
+                        \cdot\frac{t^3}{t^3}
+                    \in\series{\Z[a_1,\ldots,a_6]}{t}.
+        \end{equation*}
+
+        \item[(i)] Let $P_1=(x(t_1),y(t_1)),P_2=(x(t_2),y(t_2))\in E(K)$. The $x$-
+            and $y$- coordinates of $P_1\oplus P_2$ are rational functions in
+            $x(t_i)$ and $y(t_i)$, hence lie in $K$, say
+            \begin{equation*}
+                P\oplus Q = (x_3(t_1,t_2),y_3(t_1,t_2)) \in E(K).
+            \end{equation*}
+            Then
+            \begin{equation*}
+                \calF_E(t_1,t_2) = -x_3(t_1,t_2)/y_3(t_1,t_2) \in K
+            \end{equation*}
+            suffices. By an explicit computation we have
+            $\calF_E\in\series{\Z[a_1,\ldots,a_6]}{t_1,t_2}$ with the given
+            leading terms.
+
+        \item[(iii)] This holds by construction, noting that the expressions
+            converge for $t_1,t_2\in p\Z_p$.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}
+    A (one-parameter, commutative) \emph{formal group} over a ring $R$ is a
+    power series $\calF\in\series{R}{X,Y}$ such that
+    \begin{enumerate}[label=(\roman*)]
+        \item $\calF(X,Y)\in X+Y+(X,Y)^2$ (also written $X\oplus_\calF Y$),
+        \item $\calF(X,\calF(Y,Z))=\calF(\calF(X,Y),Z)$ (associativity),
+        \item $\calF(X,Y)=\calF(Y,X)$ (commutativity),
+        \item $\calF(X,0)=X$, $\calF(0,Y)=Y$ (identity), and
+        \item $\exists!i(T)\in\series{R}{T}$ such that
+            $\calF(T,i(T))=0=\calF(i(T),T)$ (inverses).
+    \end{enumerate}
+\end{definition}
+
+\begin{notation}
+    For $R=\Z_p$, we write $\calF(p\Z_p)$ for the group $(p\Z_p,\oplus_\calF)$.
+    Note that we have convergence of $\calF(X,Y)$ to an element of $p\Z_p$ for
+    $X,Y\in p\Z_p$.
+\end{notation}
+
+\begin{examples}
+    \begin{itemize}
+        \item $\hat\G_a(X,Y)=X+Y$, $\hat\G_a(p\Z_p)=(p\Z_p,+)$.
+        \item $\hat\G_m(X,Y)=(1+X)(1+Y)-1=X+Y+XY$,
+            $\hat\G_m(p\Z_p)\cong(1+p\Z_p,\times)$.
+    \end{itemize}
+\end{examples}
+
+\begin{corollary}
+    $\calF_E$ is a formal group over any ring $R\supseteq\Z[a_1,\ldots,a_6]$.
+\end{corollary}
+
+\begin{theorem}
+    Let $E/\Q_p$ be an elliptic curve given by a minimal Weierstrass equation.
+    Then
+    \begin{equation*}
+        \hat E(p\Z_p)\cong E_1(\Q_p)
+    \end{equation*}
+    where $\hat E=\calF_E$ is the formal group associated to $E$.
+\end{theorem}
+
+\begin{proof}
+    This follows from Corollary 42, Proposition 40, and Proposition 41.
+\end{proof}
+
+\begin{lemma}
+    Let $\calF$ be a formal group over $R$, and let $[n]$ denote the
+    multiplication by $n$ map, i.e.
+    \begin{equation*}
+        \underbrace{[n](T)
+            = T\oplus_\calF\cdots\oplus_\calF T}_{\text{$n$ times}}.
+    \end{equation*}
+    Then $[n](T)=nT+(T^2)\in\series{R}{T}$.
+\end{lemma}
+
+\begin{proof}
+    The case $n=1$ is clear, and the rest follows by induction and part (i) of
+    the definition.
+\end{proof}
+
+\begin{lemma}
+    Suppose $f(T)=aT+O(T^2)\in\series{R}{T}$ with $a\in R^\times$. Then there
+    is a power series $g(T)\in\series{R}{T}$ of the form $g(T)=a^{-1}T+O(T^2)$
+    such that $f(g(T))=T=g(f(T))$.
+\end{lemma}
+
+\begin{proof}
+    Write $f(T)=aT+a_2T^2+a_3T^3+\cdots$. Construct $g(T)=b_1T+b_2T^2+\cdots$ as
+    follows. Let $g_1(T)=b_1T$ where $b_1=a^{-1}\in R$, so
+    $f(g_1(T))=T+c_2T^2+\cdots$. Suppose we have $g_n(T)=b_1T+\cdots+b_nT^n$
+    such that $f(g_n(T))=T+c_{n+1}T^{n+1}+\cdots$. Then let
+    $g_{n+1}(T)=g_n(T)-\frac{c_{n+1}}{a}T^{n+1}$, i.e.
+    $b_{n+1}=-\frac{c_{n+1}}{a}$. We get
+    \begin{align*}
+        f(g_{n+1}(T))
+            &= f(g_n(T)-\frac{c_{n+1}}{a}T^{n+1}) \\
+            &= a(g_n(T) - \frac{c_{n+1}}{a}T^{n+1}) + a_2(\cdots)^2 + \cdots \\
+            &= f(g_n(T)) - c_{n+1}T^{n+1} + O(T^{n+2}) \\
+            &= T + O(T^{n+2}).
+    \end{align*}
+    Thus $f(g(T))=T$. Similarly we can construct $h(T)\in\series{R}{T}$ such
+    that $g(h(T))=T$, and $h(T)=f(T)$ by a simple argument about monoids.
+\end{proof}
+
+\begin{corollary}
+    Let $E/\Q_p$ be an elliptic curve. Then for $p\nmid n$, multiplication by
+    $n$ is an isomorphism
+    \begin{equation*}
+        E_1(\Q_p)\to E_1(\Q_p).
+    \end{equation*}
+    In particular $E_1(\Q_p)[n]=\{\O\}$.
+\end{corollary}
+
+\begin{proof}
+    Theorem 43 implies $E_1(\Q_p)\cong\hat E(p\Z_p)$ for a minimal model. As
+    $n\in\Z_p^\times$ we get that $[n]:\hat E(p\Z_p)\to\hat E(p\Z_p)$ is both
+    surjective and injective by Lemma 45.
+\end{proof}
+
+\begin{remark}
+    This works equally well over non-Archimedean local fields when $n$ is
+    coprime to the residue characteristic.
+\end{remark}
+
+\begin{theorem}
+    Let $E/\Q_p$ be an elliptic curve given by a minimal Weierstrass equation
+    \begin{equation*}
+        E:y^2+a_1xy+a_3=x^3+a_2x^2+a_4x+a_6,\quad a_i\in\Z_p.
+    \end{equation*}
+    \begin{enumerate}[label=(\roman*)]
+        \item If $p\ne2$, then $E_1(\Q_p)$ has no elements of order $p$.
+        \item If $p=2$ and $a_1\equiv0$ mod 2, then $E_1(\Q_p)$ has no elements
+            of order 2.
+        \item If $p=2$, then $E_1(\Q_p)$ has no elements of order 4.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    (i) and (ii): Set $x=x'$, $y=y'-\frac{a_1}{2}x$. This gives another minimal
+    model with no $xy$ term, so we may assume $a_1=0$. Then
+    \begin{equation*}
+        \calF_E(t_1,t_2) = t_1+t_2 - \cancelto{0}{a_1t_1t_2} + \cdots,
+    \end{equation*}
+    so by induction on $n$ we get
+    \begin{equation*}
+        [n](T)=nT + O(T^3).
+    \end{equation*}
+    If $\alpha\in p\Z_p\setminus\{0\}$ with $\ord_p(\alpha)=k$, then
+    \begin{equation*}
+        [p](\alpha) = p\alpha + O(p^{3k}),
+    \end{equation*}
+    and $\ord_p(p\alpha)=k+1<3k$, so $[p](\alpha)\ne0$. Hence multiplication by
+    $p$ has trivial kernel on $\hat E(p\Z_p)$ and hence also on $E_1(\Q_p)$ by
+    Theorem 43.
+
+    (iii) Exercise (hint: $2+2=4$).
+\end{proof}
+
+\begin{corollary}[Theorem 37]
+    $E/\Q_p$ then $E_1(\Q_p)$ has no points of finite order, except possibly
+    those of order 2 when $p=2$.
+\end{corollary}
 
 \end{document}
