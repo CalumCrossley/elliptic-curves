@@ -2278,7 +2278,13 @@ The strategy for proving the Mordell--Weil theorem is as follows:
                 b_2=0-4, b_4=0+0, b_6=1+0, b_8=0+0-1+0,
             \end{align*}
             giving $\Delta_E = -(-4)^2(-1) + 0 - 27 + 0 = -11$. This is odd, so
-            $E$ has good reduction at 2.
+            $E$ has good reduction at 2. At 11 we have
+            \begin{equation*}
+                y^2+y = (y+2^{-1})^2-4^{-1} = (y+6)^2-3,
+            \end{equation*}
+            so $E$ is given by $(y-5)^2=x^3-x^2+3=(x-8)^2(x-7)$. This is
+            singular at $(8,5)$ from the double root of $(x-8)^2(x-7)$, which
+            implies split multiplicative reduction.
         \end{proof}
 
     \item[+2.] Show that $y^2+y=x^3-x$ has infinitely many rational solutions.
