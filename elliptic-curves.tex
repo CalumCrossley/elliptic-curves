@@ -2308,6 +2308,35 @@ The strategy for proving the Mordell--Weil theorem is as follows:
 
     \item[+2.] Show that $y^2+y=x^3-x$ has infinitely many rational solutions.
 
+        \begin{proof}[Solution]
+            Using the formula for the discriminant, we have $a_1=a_2=a_6=0$ and
+            $a_3=-a_4=1$, so
+            \begin{equation*}
+                b_2 = 0 + 0, b_4 = -2 + 0, b_6 = 1 + 0, b_8 = 0 + 0 + 0 - 1,
+            \end{equation*}
+            giving $\Delta_E=0+8(2^3)-27+0=37$. Hence we have good reduction at
+            both 2 and 3. Now
+            \begin{align*}
+                \tilde E(\F_2)
+                    &= \{\O\}\cup\{(x,y)\in\F_2^2:y^2+y=x^3+x\} \\
+                    &= \{\O\}\cup\F_2^2
+            \end{align*}
+            since $y^2+y=0=x^3+x$ for $x,y\in\F_2$, so we get
+            $\tilde E(\F_2)\cong C_5$. Also
+            \begin{align*}
+                \tilde E(\F_3)
+                    &= \{\O\}\cup\{(x,y)\in\F_3^2:y(y+1)=x^3-x\} \\
+                    &= \{\O\}\cup\bigl(\{0,-1\}\times\F_3\bigr)
+            \end{align*}
+            since $x^3-x=0$ for $x\in\F_3$, so we get $\tilde E(\F_3)\cong C_7$.
+            Hence by Corollary 38 we have only 2-torsion;
+            $E(\Q)_\tors=E(\Q)_\tors[2]$. But the points of order 2 are given by
+            $y=-\frac{1}{2}$ and $x^3-x-\frac{1}{4}=0$, and this cubic in $x$
+            has no rational roots. Therefore $E(\Q)_\tors$ is trivial, so the
+            point $(0,-1)\in E(\Q)$ is non-torsion, and hence $E(\Q)$ is
+            infinite.
+        \end{proof}
+
     \item[3.] Show that if $E$ does not have multiplicative reduction at 2, 3 or
         5, then $|E(\Q)_\tors|\le6$.
 
@@ -2333,9 +2362,6 @@ The strategy for proving the Mordell--Weil theorem is as follows:
         where $\Delta_E$ is the minimal discriminant of $E$ and $P_E$ is the
         product of the primes at which $E$ has bad reduction.
 \end{enumerate}
-
-% TODO: remove
-\newpage
 
 \section{Formal Groups}
 
