@@ -2369,13 +2369,8 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     \end{equation*}
     Then
     \begin{enumerate}[label=(\roman*)]
-        \item
-            \begin{align*}
-                E_1(\Q_p)&\to p\Z_p \\
-                (x_0,y_0)&\mapsto -x_0/y_0 \\
-                \O\mapsto0
-            \end{align*}
-            is a bijection.
+        \item The map $E_1(\Q_p)\to\Z_p$ given by $(x_0,y_0)\mapsto-x_0/y_0$ and
+            $\O\mapsto0$ is a bijection.
 
     \item There are Laurent series $x(t),y(t)\in\frac{1}{t^3}\series{\Z_p}{t}$
         such that the inverse of the above map is $t\mapsto(x(t),y(t))$. These
@@ -2433,10 +2428,10 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     \end{equation*}
     Then
     \begin{enumerate}[label=(\roman*)]
-        \item There is a power series
+        \item There is a unique power series
             \begin{equation*}
                 \calF_E(t_1,t_2)
-                    = t_1+t_2-a_1t_1t_2-a_2(t_1^2t_2+t_1t_2^2 + \cdots)
+                    = t_1+t_2-a_1t_1t_2-a_2(t_1^2t_2+t_1t_2^2) + \cdots
                     \in \series{\Z[a_1,\ldots,a_6]}{t_1,t_2}
             \end{equation*}
             such that for $t_3=\calF_E(t_1,t_2)$, we have
@@ -2474,12 +2469,12 @@ The strategy for proving the Mordell--Weil theorem is as follows:
 \begin{proof}
     Let $(x(t),y(t))\in E(K)$.
     \begin{enumerate}
-        \item[(ii)] Check details on:
+        \item[(ii)] We have
             \begin{equation*}
-                t(\ominus(x(t),y(t)))
-                    = \frac{x(t)}{y(t)+a_1x(t)+a_3+\cdots}
-                    = \frac{-t^{-2}-a_1t^{-1}+\cdots}{t^{-3}+2a_1t^{-2}+\cdots}
+                \iota_E(t)
+                    = \frac{-x(t)}{-y(t)-a_1x(t)-a_3}
                         \cdot\frac{t^3}{t^3}
+                    = \frac{t-a_1t^2+\cdots}{1+a_1t+\cdots}
                     \in\series{\Z[a_1,\ldots,a_6]}{t}.
         \end{equation*}
 
@@ -2504,20 +2499,20 @@ The strategy for proving the Mordell--Weil theorem is as follows:
 
 \begin{definition}
     A (one-parameter, commutative) \emph{formal group} over a ring $R$ is a
-    power series $\calF\in\series{R}{X,Y}$ such that
+    power series $\calF\in\series{R}{X,Y}$, such that
     \begin{enumerate}[label=(\roman*)]
-        \item $\calF(X,Y)\in X+Y+(X,Y)^2$ (also written $X\oplus_\calF Y$),
+        \item $\calF(X,Y)\in X+Y+(X,Y)^2$,
         \item $\calF(X,\calF(Y,Z))=\calF(\calF(X,Y),Z)$ (associativity),
         \item $\calF(X,Y)=\calF(Y,X)$ (commutativity),
         \item $\calF(X,0)=X$, $\calF(0,Y)=Y$ (identity), and
-        \item $\exists!i(T)\in\series{R}{T}$ such that
+        \item There exists a unique $i(T)\in\series{R}{T}$ such that
             $\calF(T,i(T))=0=\calF(i(T),T)$ (inverses).
     \end{enumerate}
 \end{definition}
 
 \begin{notation}
-    For $R=\Z_p$, we write $\calF(p\Z_p)$ for the group $(p\Z_p,\oplus_\calF)$.
-    Note that we have convergence of $\calF(X,Y)$ to an element of $p\Z_p$ for
+    We write $X\oplus_\calF Y$ for $\calF(X,Y)$. For $R=\Z_p$, we write
+    $\calF(p\Z_p)$ for the group $(p\Z_p,\oplus_\calF)$. Note that we have convergence of $\calF(X,Y)$ to an element of $p\Z_p$ for
     $X,Y\in p\Z_p$.
 \end{notation}
 
