@@ -2645,8 +2645,91 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     \item[+1.]  Without moaning, honestly compute the first two leading terms of
         $x(t),y(t),w(t)$ and $\calF_E(t_1,t_2)$.
 
+        \begin{proof}[Solution]
+            Taking $w=-1/y$, $t=-x/y$ we have the equation
+            \begin{equation*}
+                w = t^3 + a_1tw + a_2t^2w + a_3w^2 + a_4tw^2 + a_6w^3
+            \end{equation*}
+            which we want to solve for $w(t)$. Letting
+            $w(t)=At^3+Bt^4+Ct^5+O(t^6)$ we expand:
+            \begin{align*}
+                At^3 + Bt^4 + Ct^5
+                    = t^3 + a_1At^4 + (a_1B+a_2A)t^5 + O(t^6),
+            \end{align*}
+            so $A=1$, $B=a_1$, $C=a_1^2+a_2$, i.e.
+            $w(t)=t^3+a_1t^4+(a_1^2+a_2)t^5+O(t^6)$. Hence
+            \begin{align*}
+                y(t) = -1/w(t)
+                    = -\frac{1}{t^3}
+                        \cdot\frac{1}{1+a_1t+(a_1^2+a_2)t^2+O(t^3)}
+                    = -\frac{1}{t^3} + \frac{a_1}{t^2} + \frac{a_2}{t} + O(1),
+            \end{align*}
+            and $x(t)=-ty(t)=\frac{1}{t^2}-\frac{a_1}{t}-a_2+O(t)$. Note that
+            the change of coordinates $(t,w)=(-x/y,-1/y)$ comes from a
+            projective transformation, so we can compute the group law using
+            lines in the $(t,w)$-plane. For formal variables $t_1,t_2$ with
+            $w_i=w(t_i)$, the line through $(t_i,w_i)$ has slope
+            \begin{equation*}
+                d
+                    = \frac{w(t_2)-w(t_1)}{t_2-t_1}
+                    = (t_1^2+t_1t_2+t_2^2)
+                        + a_1(t_1^3+t_1^2t_2+t_1t_2^2+t_2^3)
+                        + O(t_1,t_2)^4.
+            \end{equation*}
+            The two leading terms of the cubic giving the intersection of the
+            line with the curve are
+            \begin{equation*}
+                (1+a_2d+a_4d^2+a_6d^3)t^3
+                    + (a_2w_1+(a_1-a_2t_1+2w_1)d+(a_3-2t_1+3w_1)d^2-3t_1d^3)t^2,
+            \end{equation*}
+            so the roots $t_1,t_2,t_3$ satisfy
+            \begin{equation*}
+                -(t_1+t_2+t_3)
+                    = \frac{a_2w_1+(a_1-a_2t_1+2w_1)d+(a_3-2t_1+3w_1)d^2-3t_1d^3}
+                        {1+a_2d+a_4d^2+a_6d^3}.
+            \end{equation*}
+            Hence
+            \begin{align*}
+                -t_3
+                    = t_1 + t_2 + a_1d + O(t_1,t_2)^3
+                    = t_1 + t_2 + a_1(t_1^2+t_1t_2+t_2^2) + O(t_1,t_2)^3,
+            \end{align*}
+            and the $t$ coordinate $\calF_E(t_1,t_2)$ of the sum of the points
+            is given by the inverse $\iota_E(t_3)$, where
+            \begin{align*}
+                \iota_E(t)
+                    = \frac{x(t)}{y(t)+a_1x(t)+a_3}
+                    = \frac{t-a_1t^2+O(t^3)}{-1+2a_1t+O(t^2)}
+                    = -t - a_1t^2 + O(t^3),
+            \end{align*}
+            so
+            \begin{align*}
+                \calF_E(t_1,t_2)
+                    &= t_1 + t_2 + a_1(t_1^2+t_1t_2+t_2^2) - a_1(t_1+t_2)^2
+                        + O(t_1,t_2)^3 \\
+                    &= t_1 + t_2 - a_1t_1t_2 + O(t_1,t_2)^3.
+            \end{align*}
+            (Here I wrote $O(t_1,t_2)^3$ to denote an element of the ideal
+            $(t_1,t_2)^3\subseteq\series{\Q(a_1,\ldots,a_6)}{t_1,t_2}$ and
+            similar.)
+        \end{proof}
+
     \item[+2.]  Let $E/\Q_2$ be an elliptic curve. Use the expression for the
         formal group law to show that $E_1(\Q_2)$ has no elements of order 4.
+
+        \begin{proof}[Solution]
+            For $t\in2\Z_2\setminus\{0\}$ we have
+            \begin{align*}
+                [2](t) = \calF_E(t,t) = 2t - a_1t^2 + O(t^3) \in 2^2\Z_2,
+            \end{align*}
+            so $[2](t)=2^2u$ for some $u\in\Z_2$. If $\ord_2(u)=k<\infty$ then
+            \begin{equation*}
+                [4](t) = [2]([2](t)) = [2](4u) = 2^3u - 2^4a_1u^2 + O((4u)^3)
+                    \equiv 2^3u\mod 2^{2k+4},
+            \end{equation*}
+            and hence $[4](t)=0$ iff $u=0$ iff $[2](t)=0$ since $k+3<2k+4$.
+            Hence $\hat E(2\Z_2)\cong E_1(\Q_2)$ has no elements of order 4.
+        \end{proof}
 
     \item[3.] Let $p$ be an odd prime and $E/\Q_p$ an elliptic curve given by a
         minimal Weierstrass equation. Show that the $x$-coordinate of any point
