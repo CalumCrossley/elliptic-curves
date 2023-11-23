@@ -2916,11 +2916,21 @@ The strategy for proving the Mordell--Weil theorem is as follows:
         \item We have the 2-torsion points $(0,0),(1,0),(-1,0),\O\in E(\Q)$.
         \item We must have $x_0+1>0$, and $x_0(x_0-1)>0$.
 
-        \item If $x_0=2a^2$ $x_0-1=b^2$ $x_0+1=2c^2$, $a=9/z$ then
-            $2a^2-z^2=(bz)^2$ and $2a^2+z^2=2(cz)^2$. Hence $az,bz,cz$ are
-            integers, and $(a,z)=1$. We see $a$ can't be even as $-1$
-            isn't a square mod 8, and $a$ can't be odd as 3 isn't twice a square
-            mod 8. % TODO: detail
+        \item We prove directly that the triple $(2,1,2)$ cannot occur. If
+            $x_0=2a^2$, $x_0-1=b^2$ and $x_0+1=2c^2$ with $a,b,c\in\Q^\times$,
+            take a denominator $z\in\Z$ such that $az\in\Z$ and $(az,z)=1$. Then
+            $2(az)^2-z^2=(bz)^2$ and $2(az)^2+z^2=2(cz)^2$, so
+            $A=az,B=bz,C=cz$ are integers satisfying $2A^2-z_2=B^2$,
+            $2A^2+z^2=2C^2$, and $(A,z)=1$.
+            \begin{itemize}
+                \item If $A$ is even then $z$ is odd, so $B^2\equiv-1$ mod 8,
+                    which is impossible.
+
+                \item If $A$ is odd, then $A^2\equiv1$ mod 8. If $z$ is also odd
+                    then $2C^2\equiv3$ mod 8, which is impossible, and if $z$
+                    is even then $B^2\equiv2$ or 6 mod 8, which is also
+                    impossible.
+            \end{itemize}
 
         \item As the map is a homomorphism, the image is a subgroup.
     \end{enumerate}
