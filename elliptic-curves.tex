@@ -42,6 +42,7 @@
 \newcommand{\lseries}[2]{#1(\!(#2)\!)}
 
 \newcommand{\tors}{\mathrm{tors}}
+\newcommand{\cts}{\mathrm{cts}}
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\ns}{\mathrm{ns}}
 
@@ -2747,5 +2748,300 @@ The strategy for proving the Mordell--Weil theorem is as follows:
         primes $\prod_p\frac{\#\tilde E(\F_p)}{p}$ converges if and only if
         $E(\Q)$ is finite.
 \end{enumerate}
+
+\section{Descent}
+
+\begin{lemma}
+    Let $E/K$ be an elliptic curve with (for simplicity) $K\subseteq\C$, given
+    by
+    \begin{equation*}
+        y^2=(x-\alpha)(x-\beta)(x-\gamma)\quad\alpha,\beta,\gamma\in K.
+    \end{equation*}
+    For $P\in E(K)$ write $\frac{1}{2}P\in E(\bar K)$ for some point with
+    $\frac{1}{2}P\oplus\frac{1}{2}P=P$.
+    \begin{enumerate}[label=(\roman*)]
+        \item $K(\frac{1}{2}P)/K$ is Galois with
+            $\Gal(K(\frac{1}{2}P)/K)\le C_2\times C_2$.
+
+        \item The map
+            \begin{equation*}
+                \phi_P:\Gal(\bar K/K)\to E(K)[2];\quad
+                \phi_P(g)=\textstyle g(\frac{1}{2}P)\ominus\frac{1}{2}P
+            \end{equation*}
+            is a well-defined homomorphism with kernel
+            $\Gal(\bar K/K(\frac{1}{2}P))$.
+
+        \item The map
+            \begin{equation*}
+                \phi:E(K)/2E(K)\to\Hom_{\cts}(\Gal(\bar K/K),E(K)[2]);\quad
+                P\mapsto\phi_P
+            \end{equation*}
+            is a well-defined injective homomorphism.
+    \end{enumerate}
+\end{lemma}
+
+\begin{remark}
+    A homomorphism $\phi:\Gal(\bar K/K)\to G$ for a finite group $G$ is
+    continuous if it comes from a finite Galois extension, i.e. there is $F/K$
+    finite and Galois with $\tilde\phi:\Gal(F/K)\to G$ such that $\phi$ is the
+    composition $\Gal(\bar K/K)\to\Gal(F/K)\to G$. We say $\phi$ factors through
+    $F/K$.
+\end{remark}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item By Lemma 25, since
+            $E(K)[2]=\{\O,(0,\alpha),(0,\beta),(0,\gamma)\}$.
+        \item See the proof of Lemma 25(iii).
+        \item See Sheet 4, Exercise 3. Note that $\phi_P$ is continuous by (ii).
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    This is a refinement of our 16-to-1 map $P\mapsto K(\frac{1}{2}P)$;
+    $P\mapsto\phi_P$ is now injective, respects addition, and recovers
+    $K(\frac{1}{2}P)$ as the fixed field of $\ker\phi_P$.
+\end{remark}
+
+\begin{lemma}
+    Let $E/K$ be an elliptic curve with $K\subseteq\C$, given by
+    \begin{equation*}
+        y^2=(x-\alpha)(x-\beta)(x-\gamma)\quad\alpha,\beta,\gamma\in K.
+    \end{equation*}
+    \begin{enumerate}[label=(\roman*)]
+        \item We have a map
+            \begin{equation*}
+                \eta:\Hom_\cts(\Gal(\bar K/K),E(K)[2])
+                    \to\frac{K^\times}{{K^\times}^2}
+                        \times\frac{K^\times}{{K^\times}^2}
+                        \times\frac{K^\times}{{K^\times}^2}; \quad
+                \psi
+                    \mapsto(\psi_\alpha,\psi_\beta,\psi_\gamma)
+            \end{equation*}
+            where $\psi(g)\in\{\O,(\alpha,0)\}$ iff
+            $g\in\Gal(\bar K/K(\sqrt{\psi_\alpha}))$, and similar for
+            $\beta,\gamma$. Then $\eta$ is an injective homomorphism; an
+            isomorphism onto the subgroup of triples $a,b,c$ with
+            $abc\in{K^\times}^2$.
+            \begin{equation*}
+                \begin{tikzcd}
+                    & &K(\frac{1}{2}P) \ar[dl,dash] \ar[d,dash] \ar[dr,dash] & \\
+                    &K(\sqrt{\psi_\alpha}) \ar[dr,dash]
+                    &K(\sqrt{\psi_\beta}) \ar[d,dash]
+                    &K(\sqrt{\psi_\gamma}) \ar[dl,dash] \\
+                    & &K &
+                \end{tikzcd}
+            \end{equation*}
+
+        \item If $P=(x_0,y_0)\in E(K)$ then
+            $\eta(\phi_P)=(x_0-\alpha,x_0-\beta,x_0-\gamma)$ unless
+            $x_0=\alpha$, in which case the first entry is
+            $(x_0-\beta)(x_0-\gamma)$, and similar for $\beta,\gamma$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{remark}.
+    (i) simply records the subfields of $K(\frac{1}{2}P)$ associating each
+    quadratic to a specific 2-torsion point. (ii) says that these quadratics are
+    just $K(\sqrt{x_0-\alpha})$, $K(\sqrt{x_0-\beta})$, $K(\sqrt{x_0-\gamma})$.
+    Keeping this extra structure preserves the group structure on $E(K)$.
+\end{remark}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item $\Hom_\cts(\Gal(\bar K/K),C_2)\simeq K^\times/{K^\times}^2$ via
+            $\psi\mapsto d$ for $\ker\psi=\Gal(\bar K/K(\sqrt{d}))$. This is a
+            homomorphism since if $\ker\psi_i=\Gal(\bar K/K(\sqrt{d_i}))$ for
+            $i=1,2$ then
+            $\ker(\psi_1\psi_2)=\Gal(\bar K/K(\sqrt{d_1}\sqrt{d_2}))$. Now
+            apply to $E(K)[2]\cong C_2\times C_2$ to get
+            $K^\times/{K^\times}^2\times K^\times/{K^\times}^2\times K^\times/{K^\times}^2$.
+            Recording the third homomorphism gives the required map $\eta$.
+
+        \item (Sketch) If $E:y^2=x^3+Ax^2+Bx$, then for $Q=(x_0,y_0)$ we have
+            \begin{equation*}
+                2Q = \left(\left(\frac{x_0-B}{2y_0}\right)^2,\ldots\right).
+            \end{equation*}
+            Hence if $2Q=P=(x_1,y_1)$ then $K(\frac{1}{2}P)$ contains
+            $\sqrt{x_1}$, so if $E:y^2=(x-\alpha)(x-\beta)(x-\gamma)$ with
+            $P=(x_2,y_2)$ then
+            \begin{equation*}
+                K({\textstyle\frac{1}{2}P})\supseteq
+                K(\sqrt{x_2-\alpha}), K(\sqrt{x_2-\beta}), K(\sqrt{x_2-\gamma}).
+            \end{equation*}
+            Using $\alpha,\beta,\gamma$ as variables, and that
+            $\Gal(K(\frac{1}{2}P)/K)\le C_2\times C_2$, we can deduce that
+            \begin{equation*}
+                K({\textstyle\frac{1}{2}P})
+                    = K(\sqrt{x_2-\alpha},\sqrt{x_2-\beta},\sqrt{x_2-\gamma})
+            \end{equation*}
+            and no larger. Keep track of the Galois action to identify
+            subfields for the final result.
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    Consider $E:y^2=x(x-1)(x+1)$. Recall for $P\in E(\Q)$ that
+    $\Q(\frac{1}{2}P)/\Q$ only ramifies at $p=2$, so
+    $\Q(\frac{1}{2}P)\subseteq\Q(\sqrt2,i)$. Now
+    $P=(x_0,y_0)\mapsto(x_0,x_0-1,x_0+1)\in(\Q^\times/{\Q^\times}^2)^3$ is a
+    homomorphism giving the quadratic subfields of $\Q(\frac{1}{2}P)$. Hence
+    $x_0,x_0-1,x_0+1$ are given up to squares by elements of $\{\pm1,\pm2\}$.
+    We go through the possibilities:
+    \begin{equation*}
+        \begin{array}{|c|c|c|c|}
+            \hline
+            x_0 & x_0-1 & x_0+1 & \text{$\in$ image?} \\
+            \hline
+            +1 & +1 & +1 & \text{yes; 1)} \\
+            +1 & -1 & -1 & \text{no; 2)} \\
+            +1 & +2 & +2 & \text{yes; 1)} \\
+            +1 & -1 & -1 & \text{no; 2)} \\
+            -1 & +1 & -1 & \text{no; 2)} \\
+            -1 & -2 & +2 & \text{yes; 1)} \\
+            -1 & +2 & -2 & \text{no; 2)} \\
+            -1 & -1 & +1 & \text{yes; 1)} \\
+            +2 & +1 & +2 & \text{no; 3)} \\
+            +2 & -2 & -1 & \text{no; 2)} \\
+            +2 & +2 & +1 & \text{no; 4)} \\
+            +2 & -1 & -2 & \text{no; 2)} \\
+            -2 & +1 & -2 & \text{no; 2)} \\
+            -2 & -1 & +2 & \text{no; 4)} \\
+            -2 & +2 & -1 & \text{no; 2)} \\
+            -2 & -2 & +1 & \text{no; 4)} \\
+            \hline
+        \end{array}
+    \end{equation*}
+    \begin{enumerate}[label=\arabic*)]
+        \item We have the 2-torsion points $(0,0),(1,0),(-1,0),\O\in E(\Q)$.
+        \item We must have $x_0+1>0$, and $x_0(x_0-1)>0$.
+
+        \item If $x_0=2a^2$ $x_0-1=b^2$ $x_0+1=2c^2$, $a=9/z$ then
+            $2a^2-z^2=(bz)^2$ and $2a^2+z^2=2(cz)^2$. Hence $az,bz,cz$ are
+            integers, and $(a,z)=1$. We see $a$ can't be even as $-1$
+            isn't a square mod 8, and $a$ can't be odd as 3 isn't twice a square
+            mod 8. % TODO: detail
+
+        \item As the map is a homomorphism, the image is a subgroup.
+    \end{enumerate}
+    Hence $\#E(\Q)/2E(\Q)=4$ so $\rk E=0$.
+\end{example}
+
+\begin{theorem}[Complete 2-descent]
+    Let $K$ be a field of characteristic 0, and $E/K$ an elliptic curve given by
+    \begin{equation*}
+        E:y^2 = (x-\alpha)(x-\beta)(x-\gamma),\quad \alpha,\beta,\gamma\in K.
+    \end{equation*}
+    \begin{enumerate}[label=(\roman*)]
+        \item The map $P\mapsto(x_0-\alpha,x_0-\beta,x_0-\gamma)$, replacing
+            terms with the product of the other two if they vanish, and letting
+            $\O\mapsto(1,1,1)$, is an injective homomorphism
+            $E(K)/2E(K)\to(K^\times/{K^\times}^2)^3$.
+
+        \item The triples $(a,b,c)$ that lie in the image satisfy
+            $abc\in{K^\times}^2$. Either they are in the image of $E(K)[2]$, or
+            \begin{equation*}
+                cz_3^2-\alpha+\gamma = az_1^2,\quad cz_3^2-\beta+\gamma=bz_2^2
+            \end{equation*}
+            is soluble with $z_i\in K^\times$, in which case
+            $P=(az_1^2+\alpha,\sqrt{abc}z_1z_2z_3)$ maps to $(a,b,c)$.
+
+        \item If $K$ is a number field, and $(a,b,c)$ is in the image, then
+            $K(\sqrt a,\sqrt b,\sqrt c)/K$ only ramifies at primes dividing
+            $2(\alpha-\beta)(\beta-\gamma)(\alpha-\gamma)$. If $K=\Q$, then
+            taking $a,b,c\in\Z$ square-free we get that $a,b,c$ only have
+            prime factors $p\mid2(\alpha-\beta)(\beta-\gamma)(\alpha-\gamma)$,
+            assuming $\alpha,\beta,\gamma\in\Z$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Lemma 50.
+        \item Solve $x_0-\alpha=az_1^2$, $x_0-\beta=bz_2^2$,
+            $x_0-\gamma=cz_3^2$.
+        \item Lemma 26.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    Suppose $E/\Q_p$ is an elliptic curve, given by
+    \begin{equation*}
+        E:y^2=(x-\alpha)(x-\beta)(x-\gamma),\quad\alpha,\beta,\gamma\in\Z_p.
+    \end{equation*}
+    \begin{enumerate}[label=(\roman*)]
+        \item If $p\ne2$ then $\#E(\Q_p)/2E(\Q_p)=4$.
+        \item If $p\nmid2\Delta_E$ then $\Q_p(\frac{1}{2}P)/\Q_p$ is unramified
+            for $P\in E(\Q_p)$.
+        \item If $p\nmid2\Delta_E$ then $(a,b,c)$ lies in the image of
+            $E(\Q_p)/2E(\Q_p)$ iff $\ord_p(a),\ord_p(b),\ord_p(c)$ are all even
+            and $abc\in{\Q_p^\times}^2$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{remark}
+    (iii) says that only $p$ dividing $2\Delta_E$ give interesting constraints
+    on the triples $(a,b,c)$.
+\end{remark}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Consider
+            \begin{equation*}
+                \begin{tikzcd}
+                    &0 \ar[r] &E_1(\Q_p) \ar[d,"\times2"] \ar[r]
+                    &E(\Q_p) \ar[d,"\times2"] \ar[r]
+                    &E(\Q_p)/E_1(\Q_p) \ar[d,"\times2"] \ar[r] &0 \\
+                    &0 \ar[r] &E_1(\Q_p) \ar[r]
+                    &E(\Q_p) \ar[r]
+                    &E(\Q_p)/E_1(\Q_p) \ar[r] &0.
+                \end{tikzcd}
+            \end{equation*}
+            If $K_1,K_2,K_3,C_1,C_2,C_3$ are the kernels and cokernels, we have the
+            snake lemma:
+            \begin{equation*}
+                0\to K_1\to K_2\to K_3\to C_1\to C_2\to C_3\to 0.
+            \end{equation*}
+            By Corollary 46 the map $E_1(\Q_p)\xrightarrow{\times2}E_1(\Q_p)$ is an
+            isomorphism, so $K_1=C_1=0$. Therefore
+            \begin{equation*}
+                \#E(\Q_p)/2E(\Q_p) = \#C_2 = \#C_3 = \#K_3 = \#K_2
+                    = \#E(\Q_p)[2] = 4.
+            \end{equation*}
+
+        \item Lemma 26.
+        \item Exercise (use (i) and (ii)).
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    Consider $E:y^2=x(x-5)(x+5)$, with $\Delta_E=-2^65^6$, and recall the map
+    \begin{align*}
+        E(\Q)/2E(\Q) &\to (\Q^\times/{\Q^\times}^2)^3 \\
+        P=(x_0,y_0) &\mapsto (x_0,x_0-5,x_0+5).
+    \end{align*}
+    Possible triples $(a,b,c)$ in the image have
+    $a,b,c\in\{\pm1,\pm2,\pm5,\pm10\}$ and $abc=1$ up to squares.
+    \begin{itemize}
+        \item Over $\R$: The image of $E(\R)$ is $\{(+,+,+),(-,-,+)\}$.
+            % TODO: diagram
+
+        \item Over $\Q_5$: We have representatives for
+            $\Q_5^\times/{\Q_5^\times}^2$ given by $1,2,5,10$. Note that
+            $-1\in{\Q_5^\times}^2$. We know there are only 4 triples coming
+            from $E(\Q_5)$ by Proposition 52(i). These must be $(1,1,1)$,
+            $(1,5,5)$, $(5,2,10)$, $(5,10,2)$ from the 2-torsion points.
+    \end{itemize}
+    Combining this information we deduce that $P\in E(\Q)$ can only have image
+    in
+    \begin{equation*}
+        \{(1,1,1),(-1,-1,1),(1,5,5),(-1,-5,5),(5,2,10),(-5,-2,10),(5,10,2),
+            (-5,-10,2)\}.
+    \end{equation*}
+    Now $\O\mapsto(1,1,1)$, $(0,0)\mapsto(-1,-5,5)$, $(5,0)\mapsto(5,2,10)$,
+    $(-5,0)\mapsto(-5,-10,2)$, and we have the point $P=(-4,6)\mapsto(-1,-1,1)$,
+    so the image (which is a subgroup) must be the whole of this set. From this
+    we deduce that $\rk E(\Q)=1$.
+\end{example}
 
 \end{document}
