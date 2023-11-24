@@ -369,8 +369,8 @@ projective space.
 \end{remark}
 
 \begin{example}
-    The equation $y^2=(x-1)(x-2)(x-3)\mod p$, where $p\ne2$ is prime, has
-    total number of solutions $N\equiv3\mod 4$. Indeed $E(\F_p)$ has a subgroup
+    The equation $y^2=(x-1)(x-2)(x-3)$ mod $p$, where $p\ne2$ is prime, has
+    total number of solutions $N\equiv3$ mod 4. Indeed $E(\F_p)$ has a subgroup
     isomorphic to $C_2\times C_2$ given by the points of order 2 and the
     identity, so $4\mid\#E(\F_p)$, and removing the point at infinity gives
     $N=\#E(\F_p)-1$.
@@ -521,7 +521,7 @@ projective space.
             it gives a group isomorphism $E(K)\simeq E'(K)$.
         \end{proof}
 
-    \item[!5.] Prove that for every positive integer $N\equiv5\mod8$, the
+    \item[!5.] Prove that for every positive integer $N\equiv5$ mod 8, the
         elliptic curve
         \begin{equation*}
             y^2 = x^3-N^2x
@@ -1621,7 +1621,7 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     Recall the ramification index is given by $e_{\q/\p}=|I_{\q/\p}|$, where
     \begin{equation*}
         I_{\q/\p} = \{\sigma\in\Gal(K(Q)/K)
-            :\text{$\sigma(\q)=\q$ and $\sigma(t)=t\mod\q$ for all
+            :\text{$\sigma(\q)=\q$ and $\sigma(t)=t$ mod $\q$ for all
             $t\in\O_{K(Q)}$}\}
     \end{equation*}
     is the inertia group. Hence it suffices to show that $\sigma(Q)=Q$ for all
@@ -1629,7 +1629,7 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     meaning $I_{\q/\p}$ has order 1. Now for $\sigma\in I_{\q/\p}$, if
     $Q=(x_0,y_0)$ then
     \begin{equation*}
-        \sigma(x_0)=x_0\mod\p,\quad\sigma(y_0)=y_0\mod\q
+        \sigma(x_0)=x_0\text{ mod $\p$},\quad\sigma(y_0)=y_0\text{ mod $\q$}
     \end{equation*}
     so $\overline{\sigma(Q)}=\overline Q$, and $2\sigma(Q)=\sigma(2Q)=2Q$, and
     hence $\sigma(Q)=Q\oplus T$ for some $T\in E(K)[2]$. Then
@@ -2049,8 +2049,8 @@ The strategy for proving the Mordell--Weil theorem is as follows:
 \begin{proof}
     \begin{enumerate}[label=(\roman*)]
         \item Good reduction is equivalent to $\Delta_{\tilde E}\ne0$ by
-            Proposition 32(i), which is equivalent to $\Delta_E\ne0\mod\p$ for a
-            minimal model.
+            Proposition 32(i), which is equivalent to $\Delta_E\ne0$ mod $\p$
+            for a minimal model.
 
         \item Follows from Proposition 32(ii).
 
@@ -2546,8 +2546,8 @@ The strategy for proving the Mordell--Weil theorem is as follows:
     Let $\calF$ be a formal group over $R$, and let $[n]$ denote the
     multiplication by $n$ map, i.e.
     \begin{equation*}
-        \underbrace{[n](T)
-            = T\oplus_\calF\cdots\oplus_\calF T}_{\text{$n$ times}}.
+        [n](T)
+            = \underbrace{T\oplus_\calF\cdots\oplus_\calF T}_{\text{$n$ times}}.
     \end{equation*}
     Then $[n](T)=nT+(T^2)\in\series{R}{T}$.
 \end{lemma}
@@ -2726,7 +2726,7 @@ The strategy for proving the Mordell--Weil theorem is as follows:
             so $[2](t)=2^2u$ for some $u\in\Z_2$. If $\ord_2(u)=k<\infty$ then
             \begin{equation*}
                 [4](t) = [2]([2](t)) = [2](4u) = 2^3u - 2^4a_1u^2 + O((4u)^3)
-                    \equiv 2^3u\mod 2^{2k+4},
+                    \equiv 2^3u\text{ mod $2^{2k+4}$},
             \end{equation*}
             and hence $[4](t)=0$ iff $u=0$ iff $[2](t)=0$ since $k+3<2k+4$.
             Hence $\hat E(2\Z_2)\cong E_1(\Q_2)$ has no elements of order 4.
